@@ -222,6 +222,7 @@ import io from 'socket.io-client';
 // } from 'react-native';
 
 // import io from 'socket.io-client';
+import { adress } from "../adress";
 
 export default function MessageScreen(props) {
   const [addMessage, setAddMessage] = useState("");
@@ -236,7 +237,7 @@ export default function MessageScreen(props) {
       console.log('Connecté au serveur Socket.io');
     });
 
-    fetch('http://172.20.10.11:3000/messagerie/conversation', {  
+    fetch(`http://${adress}/messagerie/conversation`, {  
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idUser: conversation.idUser, idAmi: conversation.idAmi }),
@@ -270,7 +271,7 @@ export default function MessageScreen(props) {
   const handleSendAMessage = () => {
     if (addMessage) {
       socket.emit("messageSentToBack", addMessage, room);
-      fetch('http://172.20.10.11:3000/messagerie/addMessage', {
+      fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idConv: room, message: { idSenter: conversation.idUser, message: addMessage } }),

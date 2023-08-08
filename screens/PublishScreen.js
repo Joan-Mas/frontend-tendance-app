@@ -18,7 +18,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modale from "./components/Modale";
 import { setOpenModal } from "../reducers/openModal";
-
+import { adress } from "../adress";
 export default function PublishScreen() {
   //todo style mieux !
   // todo Price gerer mieux mettre un input correct
@@ -223,7 +223,7 @@ export default function PublishScreen() {
     // todo fetch post pour publier dans la data ...
     setAffiche(false);
     // /publishEvent
-    fetch("http://172.20.10.11:3000/events/publishEvent", {
+    fetch(`http://${adress}/events/publishEvent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(event),

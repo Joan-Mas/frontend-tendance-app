@@ -16,7 +16,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector, useDispatch } from "react-redux";
 import { setOpenModal } from "../../reducers/openModal";
 import { login, logout } from "../../reducers/user";
-
+import { adress } from "../adress";
 export default function Modale() {
   const isModalOpen = useSelector((state) => state.openModal.value);
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function Modale() {
 
   const handleSeConnecter = () => {
     let newUser = { username: username, email: email, password: password };
-    fetch("https://backend-tendance.vercel.app/user/signin", {
+    fetch(`http://${adress}/user/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
@@ -43,7 +43,7 @@ export default function Modale() {
   };
   const handleSinscrire = () => {
     let newUser = { username: username, email: email, password: password };
-    fetch("https://backend-tendance.vercel.app/user/signup", {
+    fetch(`http://${adress}/user/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),

@@ -22,7 +22,7 @@ import formatDateToFrenchLocale from './components/formatageList';
 
 
 import {addParticipant,removeParticipant,addInter,removeInter} from '../reducers/user';
-
+import { adress } from "../adress";
 
 export default function EventScreen({ navigation: { goBack } }) {
 
@@ -74,7 +74,7 @@ const user = useSelector((state) => state.user.value);
         setIsParticiped(!isParticiped)
         if(!isParticiped){
             // todo dispatch(addParticipant(dataEvent.id));
-            fetch('http://172.20.10.11:3000/user/participated', {
+            fetch(`http://${adress}/user/participated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
@@ -83,7 +83,7 @@ const user = useSelector((state) => state.user.value);
                 })
         }else{
             // todo dispatch(addParticipant(dataEvent.id))
-            fetch('http://172.20.10.11:3000/user/notParticipated', {
+            fetch(`http://${adress}/user/notParticipated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
@@ -98,7 +98,7 @@ const user = useSelector((state) => state.user.value);
     const handleInterrested = ()=>{
         setIsInterrested(!isInterrested)
         if(!isInterrested){
-            fetch('http://172.20.10.11:3000/user/interested', {
+            fetch(`http://${adress}/user/interested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
@@ -106,7 +106,7 @@ const user = useSelector((state) => state.user.value);
                     console.log("add intérresent ");
                 })
         }else{
-            fetch('http://172.20.10.11:3000/user/notInterested', {
+            fetch(`http://${adress}/user/notInterested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
@@ -117,7 +117,7 @@ const user = useSelector((state) => state.user.value);
     }
 
     const handleAjouterUnAmi = () =>{
-        fetch('http://172.20.10.11:3000/messagerie/ajouterUnAmi', {
+        fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),

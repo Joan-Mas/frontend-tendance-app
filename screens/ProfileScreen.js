@@ -27,7 +27,7 @@ import {login,logout} from "../reducers/user"
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setEvent } from '../reducers/event';
-
+import { adress } from "../adress";
 
 
 export default function ProfileScreen(props) {
@@ -43,7 +43,7 @@ export default function ProfileScreen(props) {
 useEffect(() => {
   if (user) {
     console.log("useEffect parti1");
-    fetch('http://172.20.10.11:3000/user/mesEvents', {
+    fetch(`http://${adress}/user/mesEvents`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idUser: user._id }),

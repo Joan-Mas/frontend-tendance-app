@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { setEvents } from "../reducers/events";
+import { adress } from "../adress";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -24,7 +25,7 @@ export default function SelectionScreen() {
 
 
   useEffect(() => {
-    fetch(`http://172.20.10.11:3000/events/events`)
+    fetch(`http://${adress}/events/events`)
       .then((response) => response.json())
       .then((data) => {
         if (data) {

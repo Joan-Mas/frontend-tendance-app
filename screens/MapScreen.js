@@ -37,7 +37,7 @@ import { setOpenModal } from "../reducers/openModal";
 import eventData from "../data/data";
 
 const BACKEND_ADDRESS = "https://backend-tendance.vercel.app";
-
+import { adress } from "../adress";
 
 export default function MapScreen(props) {
   const dispatch = useDispatch();

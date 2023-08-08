@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEvent } from '../reducers/event';
 import photoProfile from "../assets/photoProfile.jpg"
 import { setConversation } from '../reducers/conversation';
-
+import { adress } from "../adress";
 const amis = [{username:"Jojo",photo:""},{username:"Ines",photo:""},{username:"Aaron",photo:""},{username:"MaxLeGrand",photo:""},
 {username:"MaxLePetit",photo:""},{username:"Nicos",photo:""},{username:"Micky",photo:""}]
 
@@ -53,8 +53,8 @@ export default function AmisScreen(props) {
  
 
     useEffect(() => {
-        console.log("fetch");
-        fetch('http://172.20.10.11:3000/messagerie/amis', { //! a changer dans le back a push 
+        
+        fetch(`http://${adress}/messagerie/amis`, { //! a changer dans le back a push 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ idUser: user._id }),
