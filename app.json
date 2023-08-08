@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "frontendTendance",
+    "slug": "frontendTendance",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/tendance.gif",
+      "resizeMode": "contain",
+      "backgroundColor": "#161519"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/tendance.gif",
+        "backgroundColor": "#161519"
+      }
+    },
+    "web": {
+      "favicon": "./assets/tendance.gif"
+    }
+    
+  }
+}
