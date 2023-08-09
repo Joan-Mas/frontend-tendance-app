@@ -271,9 +271,9 @@ export default function MessageScreen(props) {
 
   const handleSendAMessage = () => {
     if (addMessage) {
-      let obj = {message:addMessage,id:conversation.idUser};
+      //let obj = {message:addMessage,id:conversation.idUser};
 
-    socket.emit("messageSentToBack", obj, room);
+    socket.emit("messageSentToBack", addMessage, room);
       fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -287,12 +287,13 @@ export default function MessageScreen(props) {
       });
     }
   }
-
+  //style={data===conversation.idUser?styles.userMessage:styles.friendMessage}
   socket.on("messageReceivedToFront", (data) => {
-    console.log('data.id :>> ', data.id);
+    console.log('data.id :>> ', data);
     const newMessage = (
-      <View key={messageDisplay.length} style={data.id===conversation.idUser?styles.userMessage:styles.friendMessage}>
-        <Text>{data.message}</Text>
+      <View key={messageDisplay.length} style={styles.userMessage}>
+        <Text>{data}</Text>
+        
       </View>
     );
     setMessageDisplay(prevMessages => [...prevMessages, newMessage]);
