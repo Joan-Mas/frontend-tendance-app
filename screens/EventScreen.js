@@ -37,6 +37,7 @@ const isModalOpen = useSelector((state)=>state.openModal.value)
 
 const [isParticiped,setIsParticiped]=useState(false); // todo Verifier si le user se trouve dans les particpant si oui mettre deja en true
 const [isInterrested,setIsInterrested]=useState(false); // todo Verifier si le user se trouve dans les interresé si oui mettre deja en true
+const [isAddingFriend, setIsAddingFriend] = useState(false);
 const dispatch=useDispatch();
 
 const dataEvent = useSelector((state) => state.event.value);
@@ -73,7 +74,7 @@ const user = useSelector((state) => state.user.value);
     const handleParticipate = ()=>{
         setIsParticiped(!isParticiped)
         if(!isParticiped){
-            dispatch(removeParticipant(dataEvent.id));
+            // todo dispatch(addParticipant(dataEvent.id));
             fetch(`http://${adress}/user/participated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -82,7 +83,7 @@ const user = useSelector((state) => state.user.value);
                     console.log("add participant ");
                 })
         }else{
-            dispatch(addParticipant(dataEvent.id))
+            // todo dispatch(addParticipant(dataEvent.id))
             fetch(`http://${adress}/user/notParticipated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -98,7 +99,6 @@ const user = useSelector((state) => state.user.value);
     const handleInterrested = ()=>{
         setIsInterrested(!isInterrested)
         if(!isInterrested){
-            dispatch(removeInter(dataEvent.id));
             fetch(`http://${adress}/user/interested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -107,7 +107,6 @@ const user = useSelector((state) => state.user.value);
                     console.log("add intérresent ");
                 })
         }else{
-            dispatch(addInter(dataEvent.id))
             fetch(`http://${adress}/user/notInterested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -121,12 +120,15 @@ const user = useSelector((state) => state.user.value);
     const handleAjouterUnAmi = () =>{
         console.log('user._id :>> ', user._id);
         console.log('dataEvent._id :>> ', dataEvent._id);
+        setIsAddingFriend(true)
         fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
                 }).then(response => response.json()).then(data => {
-                    console.log("post add un ami",data);
+                    if(data.result){
+                        console.log(data);
+                    }
                 })
     }
 
@@ -152,7 +154,7 @@ const user = useSelector((state) => state.user.value);
                 
                 <View>
                         <Text style={styles.textajoutButton}>{dataEvent.creator}</Text>
-                        <TouchableOpacity onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
+                        <TouchableOpacity disabled={isAddingFriend} onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
                             <Text style={styles.text}>Ajouter le creator comme ami</Text>
                         </TouchableOpacity>
                      </View>   
