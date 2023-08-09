@@ -131,7 +131,7 @@ export default function SelectionScreen({navigation}) {
         style={[styles.block, { backgroundColor: "rgba(140, 178, 255, 1)" }]}
         activeOpacity={0.8}
         onPress={() => {
-          dispatch(storeResearch('science'))
+          dispatch(storeResearch('sport'))
           navigation.navigate("TabNavigator", { screen: "TabNavigator" });
         }}
       >

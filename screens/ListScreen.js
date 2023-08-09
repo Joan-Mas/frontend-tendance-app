@@ -270,7 +270,7 @@ export default function ListScreen({ navigation }) {
   const dataDynamic = useSelector((state) => state.events.value);
   const user = useSelector((state) => state.user.value);
 
-  console.log(dataDynamic);
+  // console.log(dataDynamic);
   let finalDataBase = [];
 
   //! DATE (plus mon code)

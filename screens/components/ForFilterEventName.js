@@ -1,7 +1,7 @@
 export default function ForFilterEventName(data, researchLowerCase) {
 
     const regexPattern = researchLowerCase.replace(/\s/g, '');
-    console.log(regexPattern);
+    // console.log(regexPattern);
     let newDataBase = []; //!fonction de filtrage
     
      

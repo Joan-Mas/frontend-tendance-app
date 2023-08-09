@@ -19,6 +19,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modale from "./components/Modale";
 import { setOpenModal } from "../reducers/openModal";
 import { adress } from "../adress";
+import { addEvent } from "../reducers/events";
 export default function PublishScreen() {
   //todo style mieux !
   // todo Price gerer mieux mettre un input correct
@@ -31,7 +32,7 @@ export default function PublishScreen() {
   const [addresse, setAdresse] = useState("");
   const [hourStart, setHourStart] = useState(new Date());
   const [hourEnd, setHourEnd] = useState(new Date());
-  //const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [dateText, setDateText] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -220,6 +221,7 @@ export default function PublishScreen() {
     };
     // {"access": "Privée", "address": "Paris", "amis": "", "creator": "64c9035431ebd1b0f73873ee", "date": "2023-08-03T08:57:00.000Z", "description": "", "eventCover": "", "eventName": "a", "hourEnd": "2023-08-02T09:57:00.000Z", "hourStart": "2023-08-02T08:57:21.230Z", "price": "12", "type": "Food"}
     console.log("event", event);
+    
     // todo fetch post pour publier dans la data ...
     setAffiche(false);
     // /publishEvent
@@ -230,8 +232,11 @@ export default function PublishScreen() {
     })
       .then((response) => response.json())
       .then((data) => {
+        
         console.log("pas mal", data); // je renvoie {"result": true}
       });
+
+
   };
 
   return !user ? (

@@ -37,7 +37,7 @@ export default function ForFilterDate(data, timeToFilter) {
         }
         
       }
-      console.log(newDataBase);
+      // console.log(newDataBase);
       return newDataBase
     
     };

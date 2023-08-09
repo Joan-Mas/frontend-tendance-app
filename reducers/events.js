@@ -12,8 +12,10 @@ export const eventsSlice = createSlice({
     setEvents:(state, action)=>{
       state.value=action.payload;
     },
-   
-    // }
+    addEvent: (state, action) => {
+      state.value.push(action.payload);
+    },
+
   },
 });
 

@@ -69,6 +69,18 @@ export default function MapScreen(props) {
           setCurrentPosition(location.coords);
         });
       }
+
+      fetch(`http://${adress}/events/events`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          const filteredEvents = data.filter((event) => new Date(event.date) >= new Date());
+          dispatch(setEvents(filteredEvents));
+        }
+
+      });
+
+
     })();
     console.log('redux',researchLowerCase)
     
@@ -76,7 +88,7 @@ export default function MapScreen(props) {
 
   //se centrer sur l'event qui pop up
   const handleMarkerPress = (event) => {
-    console.log({ result: event });
+    // console.log({ result: event });
 
     mapRef.current.animateToRegion({
       latitude: event.latitude + 0.05,
@@ -191,7 +203,7 @@ export default function MapScreen(props) {
 
   if (!isResearch || searchFilter !== "date") {
     finalDataBase = events;
-    console.log({ NewDatabase: events });
+    //console.log({ NewDatabase: events });
   }
   if (!isResearch || searchFilter === "date") {
     if (timeToFilter === "today") {
