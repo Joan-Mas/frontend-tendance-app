@@ -13,6 +13,8 @@ import {
   View,
 } from 'react-native';
 
+import { useIsFocused } from '@react-navigation/native';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import photoProfile from "../assets/photoProfile.jpg"
 import photoBack from "../assets/photoBack.jpg"
@@ -38,7 +40,7 @@ export default function ProfileScreen(props) {
 
 
  const [futurEvents, setFuturEvents] = useState([]);
-
+ const isFocused = useIsFocused();
 
 useEffect(() => {
   if (user) {
@@ -50,23 +52,25 @@ useEffect(() => {
     })
     .then(response => response.json())
     .then(data => {
-        //todo caler une condition
+        console.log('data',data);
+        // dispatch(setEvents(data));
       const eventsFutur = data.map((data, index) => (
         <Pressable onPress={() => handlePress(data)} key={`futur-${index}`}>
           <Event data={data} />
         </Pressable>
       ));
-
-      setFuturEvents(eventsFutur);
+        setFuturEvents(eventsFutur);
+        setIsReloadProfil(true);
     });
-  } else {
+  } if(!user) {
     console.log("useEffect parti2");
     dispatch(setOpenModal(true));
   }
-}, [user]);
+}, [user, isFocused]);
 
+  
 
-        
+        console.log('user', user);
 
 //! Function _____________________________________________________________________________________________________________________________
 
@@ -145,7 +149,7 @@ useEffect(() => {
             <ScrollView style={styles.events}>
 
                  <View style={styles.futurEvents}>
-                     <Text style={styles.text}> ____________________ Events ______________________</Text>
+                     <Text style={styles.text}>Événément à venir</Text>
                     {futurEvents}
                 </View>
              </ScrollView> 
