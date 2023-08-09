@@ -230,7 +230,7 @@ export default function MessageScreen(props) {
   const [room, setRoom] = useState("");
   
   const conversation = useSelector((state) => state.conversation.value);
-  const socket = io('ws://172.20.10.11:3000');
+  const socket = io('ws://10.0.1.129:3000');
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -245,6 +245,7 @@ export default function MessageScreen(props) {
     .then(response => response.json())
     .then(data => {
       setRoom(data.id);
+      const room =data.id;
       socket.emit("joinRoom", room);
 
       if (data.messages !== null) {
@@ -270,7 +271,7 @@ export default function MessageScreen(props) {
 
   const handleSendAMessage = () => {
     if (addMessage) {
-     
+     socket.emit("messageSentToBack", addMessage, room);
       fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -278,7 +279,7 @@ export default function MessageScreen(props) {
       })
       .then(response => response.json())
       .then(data => {
-        socket.emit("messageSentToBack", addMessage, room);
+        
         console.log(data);
       });
     }
