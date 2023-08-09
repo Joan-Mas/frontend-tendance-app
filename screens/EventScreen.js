@@ -74,7 +74,7 @@ const user = useSelector((state) => state.user.value);
     const handleParticipate = ()=>{
         setIsParticiped(!isParticiped)
         if(!isParticiped){
-            dispatch(removeParticipant(dataEvent.id));
+            // todo dispatch(addParticipant(dataEvent.id));
             fetch(`http://${adress}/user/participated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -83,7 +83,7 @@ const user = useSelector((state) => state.user.value);
                     console.log("add participant ");
                 })
         }else{
-            dispatch(addParticipant(dataEvent.id))
+            // todo dispatch(addParticipant(dataEvent.id))
             fetch(`http://${adress}/user/notParticipated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -99,7 +99,6 @@ const user = useSelector((state) => state.user.value);
     const handleInterrested = ()=>{
         setIsInterrested(!isInterrested)
         if(!isInterrested){
-            dispatch(removeInter(dataEvent.id));
             fetch(`http://${adress}/user/interested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -108,7 +107,6 @@ const user = useSelector((state) => state.user.value);
                     console.log("add intérresent ");
                 })
         }else{
-            dispatch(addInter(dataEvent.id))
             fetch(`http://${adress}/user/notInterested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -122,13 +120,15 @@ const user = useSelector((state) => state.user.value);
     const handleAjouterUnAmi = () =>{
         console.log('user._id :>> ', user._id);
         console.log('dataEvent._id :>> ', dataEvent._id);
-        setIsAddingFriend(true);
+        setIsAddingFriend(true)
         fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idUser:user._id, idEvent:dataEvent._id }),
                 }).then(response => response.json()).then(data => {
-                    console.log("post add un ami",data);
+                    if(data.result){
+                        console.log(data);
+                    }
                 })
     }
 
