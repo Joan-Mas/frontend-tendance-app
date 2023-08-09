@@ -483,7 +483,7 @@ export default function PublishScreen() {
           <Text>Ajouter des amis</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.btnAjout} onPress={()=>pickImage()}>
+        <TouchableOpacity style={styles.btnAjout} onPress={()=>handlePictureImport()}>
           <View style={styles.plus}>
             <FontAwesome name="plus" size={15} color={"white"} />
           </View>
