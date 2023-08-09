@@ -230,7 +230,7 @@ export default function MessageScreen(props) {
   const [room, setRoom] = useState("");
   
   const conversation = useSelector((state) => state.conversation.value);
-  const socket = io('ws://172.20.10.11:3000');
+  const socket = io(`ws://${adress}`);
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -245,12 +245,13 @@ export default function MessageScreen(props) {
     .then(response => response.json())
     .then(data => {
       setRoom(data.id);
+      const room = data.id;
       socket.emit("joinRoom", room);
 
       if (data.messages !== null) {
         const lastMessages = data.messages.map((message, index) => (
           <View key={index} style={message.idSenter === conversation.idUser ? styles.userMessage : styles.friendMessage}>
-            <Text>{message.message}</Text>
+            <Text style={styles.textGoback}>{message.message}</Text>
           </View>
         ));
         setMessageDisplay(lastMessages);
@@ -269,8 +270,11 @@ export default function MessageScreen(props) {
   }
 
   const handleSendAMessage = () => {
+    
     if (addMessage) {
-      socket.emit("messageSentToBack", addMessage, room);
+      let obj = { id: conversation.idUser, message: addMessage }
+      console.log('obj.id :>> ', obj.id);
+      socket.emit("messageSentToBack", obj, room);
       fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -283,28 +287,28 @@ export default function MessageScreen(props) {
       });
     }
   }
-  //style={data===conversation.idUser?styles.userMessage:styles.friendMessage}
+  //
   socket.on("messageReceivedToFront", (data) => {
     const newMessage = (
-      <View key={messageDisplay.length} style={styles.friendMessage}>
-        <Text>{data}</Text>
+      <View key={messageDisplay.length} style={data.id===conversation.idUser?styles.userMessage:styles.friendMessage}>
+        <Text style={styles.textGoback}>{data.message}</Text>
       </View>
     );
     setMessageDisplay(prevMessages => [...prevMessages, newMessage]);
   });
-
+//
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity onPress={handleBack} style={styles.goBack}>
-        <Text>RETOUR mes Amis</Text>
+       <TouchableOpacity onPress={handleBack} style={styles.goBack}>
+        <Text style={styles.textGoback}>AMIS</Text>
       </TouchableOpacity>
-      <Text>Discussion avec {conversation.idAmi}</Text>
+      
       <ScrollView style={styles.messageContainer}>
-        {messageDisplay.length > 0 ? messageDisplay : <Text>Vous n'avez pas de message</Text>}
-      </ScrollView>
+      {messageDisplay.length > 0 ? messageDisplay : <Text>Vous n'avez pas de message</Text>}
+      </ScrollView> 
       <View style={styles.SentmessageContainer}>
         <TextInput
         placeholder="Enter Your Message"
@@ -313,7 +317,7 @@ export default function MessageScreen(props) {
         style={styles.input}
       />
       <TouchableOpacity style={styles.sendAMessage} onPress={handleSendAMessage}>
-        <Text>Envoyer un message</Text>
+        <Text style={styles.textGoback}>Envoyer un message</Text>
       </TouchableOpacity>
       </View>
       
@@ -338,10 +342,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 10,
     flex: 1,
-    width:"80%"
+    width:"95%"
   },
   friendMessage: {
-    backgroundColor: "#e8e8e9",
+    backgroundColor: "#c8c8c9",
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
@@ -356,20 +360,37 @@ const styles = StyleSheet.create({
   },
   SentmessageContainer:{
     flexDirection:"row",
-    width:"80%",
-    backgroundColor:"gray"
+    justifyContent:"space-between",
+    alignItems:"center",
+    width:"95%",
+    backgroundColor:"gray",
+    margin:10
   },
   input: {
     backgroundColor: "#e8e8e9",
     height: 30,
-    width: 130,
-    margin: 10
+    width: 200,
+    margin: 10,
+    borderRadius:10
   },
   sendAMessage: {
-    width: 150,
+    margin:10,
+    width: 80,
     height: 30,
     alignItems: 'center',
     backgroundColor: '#498ffe',
     borderRadius: 10,
-  }
+  },
+  goBack:{
+    justifyContent:"flex-start",
+    alignSelf:"flex-start",
+    margin:20,
+    backgroundColor:"#498ffe",
+    padding:10,
+    borderRadius:20,
+},
+textGoback:{
+    color:"white",
+    fontWeight:"bold"
+},
 });

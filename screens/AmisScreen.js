@@ -65,8 +65,8 @@ export default function AmisScreen(props) {
             const mesAmis = data.map((data, i) => (
                 <View key={i} style={styles.friend}>
                     <Image source={photoProfil} style={styles.image} />
-                    <Text>{data.username}</Text>
-                    <TouchableOpacity style={styles.sendAMessage} onPress={() => openARoom(data)}><Text>Envoyer un message</Text></TouchableOpacity>
+                    <Text style={styles.textGoback}>{data.username}</Text>
+                    <TouchableOpacity style={styles.sendAMessage} onPress={() => openARoom(data)}><Text style={styles.textGoback}>Envoyer un message</Text></TouchableOpacity>
                 </View>
             ));
             setAmis(mesAmis);
@@ -81,10 +81,11 @@ export default function AmisScreen(props) {
         <View style={styles.container}>
 
             <TouchableOpacity onPress={()=>handleBack()} style={styles.goBack}>
-                <Text>RETOUR Profile</Text>
+                
+                <Text style={styles.textGoback}>Profile</Text>
             </TouchableOpacity>
 
-            <Text>Mes Amis</Text>
+            <Text style={styles.text}>Mes Amis</Text>
             <ScrollView style={styles.listFriend}>
                 
             {loading ? <Text>Chargement...</Text> : (amis.length > 0 ? amis : <Text>Pas d'amis miskine</Text>)}
@@ -106,15 +107,30 @@ const styles = StyleSheet.create({
     goBack:{
         justifyContent:"flex-start",
         alignSelf:"flex-start",
-        margin:20
+        margin:20,
+        backgroundColor:"#498ffe",
+        padding:10,
+        borderRadius:20,
     },
+    textGoback:{
+        color:"white",
+        fontWeight:"bold"
+    },
+    text:{
+        fontSize:30,
+        fontWeight:"bold",
+        color:"#498ffe"
+    }, 
     friend:{
         flexDirection:"row",
         alignItems:"center",
         justifyContent:'space-between',
-        backgroundColor:"red",
+        backgroundColor:"gray",
         margin:10,
-        width:"90%"
+        width:"90%",
+        padding:10,
+        margin:5,
+        borderRadius:5
     },
     image:{
         width:50,
@@ -126,8 +142,8 @@ const styles = StyleSheet.create({
         width: 150,
         height:30,
         alignItems: 'center',
-        backgroundColor: '#ec6e5b',
+        backgroundColor: '#498ffe',
         borderRadius: 10,
-        
+        margin:10
     }
 })
