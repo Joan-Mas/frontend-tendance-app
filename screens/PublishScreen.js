@@ -47,7 +47,9 @@ export default function PublishScreen() {
   const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
   const [selectedOptionType, setSelectedOptionType] = useState(null);
   const [selectedOptionAccess, setSelectedOptionAccess] = useState(null);
+
   const [picture, setPicture] = useState("");
+
   // Afficher si event publish ou pas
   const [affiche, setAffiche] = useState(true);
   //!
@@ -74,7 +76,7 @@ export default function PublishScreen() {
 
     setPicture(result.assets[0].uri)
 
-  
+    // const formData = new FormData();
 
   }
 
@@ -226,7 +228,7 @@ export default function PublishScreen() {
         break;
     }
     console.log(user._id);
-    console.log(picture);
+    console.log('picture :>> ', picture);
     let event = {
       creatorName: user._id,
       eventName: name,
@@ -271,7 +273,7 @@ export default function PublishScreen() {
       }
     });
   };
-console.log('picture :>> ', picture);
+
   return !user ? (
     <View>
       <Modale></Modale>
@@ -283,7 +285,7 @@ console.log('picture :>> ', picture);
       style={styles.container}
     >
       <StatusBar backgroundColor="#f1f1f1" barStyle="dark-content" />
-      {/* {picture && <Image source={{ uri: picture }} style={{ width: 200, height: 200 }} />} */}
+      <ScrollView></ScrollView>
       <Text style={styles.title}>Créer un event</Text>
 
       <View style={styles.viewAccess}>

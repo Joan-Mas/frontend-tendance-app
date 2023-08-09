@@ -136,7 +136,7 @@ const user = useSelector((state) => state.user.value);
 
 
 // ! Return_____________________________________________________________________________________________________________________________________
-
+console.log('dataEvent.eventCover :>> ', dataEvent.eventCover);
     return (
         <View style={styles.container}>
 
@@ -148,7 +148,7 @@ const user = useSelector((state) => state.user.value);
             </View>
             
 
-            <Image source={photoEvent} style={styles.photoEvent} />
+            <Image source={{uri:dataEvent.eventCover}} style={styles.photoEvent} />
 
             <View style={styles.viewText}>
                 
