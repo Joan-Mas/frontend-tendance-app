@@ -37,6 +37,7 @@ const isModalOpen = useSelector((state)=>state.openModal.value)
 
 const [isParticiped,setIsParticiped]=useState(false); // todo Verifier si le user se trouve dans les particpant si oui mettre deja en true
 const [isInterrested,setIsInterrested]=useState(false); // todo Verifier si le user se trouve dans les interresé si oui mettre deja en true
+const [isAddingFriend, setIsAddingFriend] = useState(false);
 const dispatch=useDispatch();
 
 const dataEvent = useSelector((state) => state.event.value);
@@ -117,6 +118,9 @@ const user = useSelector((state) => state.user.value);
     }
 
     const handleAjouterUnAmi = () =>{
+        console.log('user._id :>> ', user._id);
+        console.log('dataEvent._id :>> ', dataEvent._id);
+        setIsAddingFriend(true);
         fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -148,7 +152,7 @@ const user = useSelector((state) => state.user.value);
                 
                 <View>
                         <Text style={styles.textajoutButton}>{dataEvent.creator}</Text>
-                        <TouchableOpacity onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
+                        <TouchableOpacity disabled={isAddingFriend} onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
                             <Text>Ajouter comme ami</Text>
                         </TouchableOpacity>
                      </View>   
