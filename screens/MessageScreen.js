@@ -230,7 +230,7 @@ export default function MessageScreen(props) {
   const [room, setRoom] = useState("");
   
   const conversation = useSelector((state) => state.conversation.value);
-  const socket = io('ws://10.0.1.129:3000');
+  const socket = io('ws://172.20.10.11:3000');
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -245,7 +245,6 @@ export default function MessageScreen(props) {
     .then(response => response.json())
     .then(data => {
       setRoom(data.id);
-      const room =data.id;
       socket.emit("joinRoom", room);
 
       if (data.messages !== null) {
@@ -271,9 +270,7 @@ export default function MessageScreen(props) {
 
   const handleSendAMessage = () => {
     if (addMessage) {
-      //let obj = {message:addMessage,id:conversation.idUser};
-
-    socket.emit("messageSentToBack", addMessage, room);
+      socket.emit("messageSentToBack", addMessage, room);
       fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -281,7 +278,6 @@ export default function MessageScreen(props) {
       })
       .then(response => response.json())
       .then(data => {
-        
         console.log(data);
         setAddMessage("");
       });
@@ -289,11 +285,9 @@ export default function MessageScreen(props) {
   }
   //style={data===conversation.idUser?styles.userMessage:styles.friendMessage}
   socket.on("messageReceivedToFront", (data) => {
-    console.log('data.id :>> ', data);
     const newMessage = (
-      <View key={messageDisplay.length} style={styles.userMessage}>
+      <View key={messageDisplay.length} style={styles.friendMessage}>
         <Text>{data}</Text>
-        
       </View>
     );
     setMessageDisplay(prevMessages => [...prevMessages, newMessage]);
