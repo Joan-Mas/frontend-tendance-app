@@ -205,23 +205,29 @@ export default function MapScreen(props) {
 
   if (!isResearch || searchFilter !== "date") {
     finalDataBase = events;
+    positionBottom = -50
     //console.log({ NewDatabase: events });
   }
   if (!isResearch || searchFilter === "date") {
     if (timeToFilter === "today") {
       finalDataBase = events;
+      positionBottom = -50
     } else {
       finalDataBase = ForFilterDate(events, timeToFilter);
+      positionBottom = -50
     }
   } else {
     if (searchFilter === "creator") {
       finalDataBase = ForFilterCreator(events, researchLowerCase);
+      positionBottom = 20
     }
     if (searchFilter === "type") {
       finalDataBase = ForFilterType(events, researchLowerCase);
+      positionBottom = 20
     }
     if (searchFilter === "eventName") {
       finalDataBase = ForFilterEventName(events, researchLowerCase);
+      positionBottom = 20
     }
   }
   if (isResearch) {
@@ -259,6 +265,24 @@ export default function MapScreen(props) {
       setInitialRegion(region);
     }
   };
+
+  const handleSatellite = () => {
+    mapRef.current.animateToRegion({
+      latitude: currentPosition.latitude,
+      longitude: currentPosition.longitude,
+      latitudeDelta: 100,
+      longitudeDelta: 100,
+    });
+  }
+
+  const handleCrash = () => {
+    mapRef.current.animateToRegion({
+      latitude: currentPosition.latitude,
+      longitude: currentPosition.longitude,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.1,
+    });
+  }
 
   // const displayEvents = () => {
 
@@ -579,7 +603,7 @@ export default function MapScreen(props) {
             flexDirection: "row",
             alignItems: "center",
             borderWidth: 1,
-            bottom: -485,
+            bottom: -515,
             left: 15,
             backgroundColor: "white",
             padding: 10,
@@ -708,6 +732,28 @@ export default function MapScreen(props) {
       >
         <FontAwesome name={"bars"} size={30} color={"#b2b2b2"} />
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => handleSatellite()}
+        style={{    position: "absolute",
+        bottom: positionBottom,
+        right: 110,
+        backgroundColor: "white",
+        padding: 10,
+        borderRadius: 50,}}
+      >
+        <FontAwesome name={"rocket"} size={30} color={"#b2b2b2"} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => handleCrash()}
+        style={{  position: "absolute",
+        bottom: positionBottom, //-50 && 20
+        right: 215,
+        backgroundColor: "white",
+        padding: 10,
+        borderRadius: 50,}}
+      >
+        <FontAwesome name={"sort-down"} size={30} color={"#b2b2b2"} />
+      </TouchableOpacity>
 
       <View></View>
     </View>
@@ -745,6 +791,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 20,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 50,
+  },
+  pressableButtonFusee: {
+    position: "absolute",
+    bottom: -50, //-50 && 20
+    right: 110,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 50,
+  },
+
+  pressableButtonDown: {
+    position: "absolute",
+    bottom: -50, //-50 && 20
+    right: 215,
     backgroundColor: "white",
     padding: 10,
     borderRadius: 50,
@@ -806,7 +869,7 @@ const styles = StyleSheet.create({
   filterButton: {
     borderWidth: 1,
     position: "absolute",
-    top: 80,
+    top: 100,
     left: 15,
     backgroundColor: "white",
     padding: 10,
