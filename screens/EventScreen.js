@@ -148,8 +148,14 @@ const user = useSelector((state) => state.user.value);
                 
                 <View>
                         <Text style={styles.textajoutButton}>{dataEvent.creator}</Text>
-                        <TouchableOpacity onPress={()=>handleAjouterUnAmi()}style={styles.ajoutButton}>Ajouter comme ami </TouchableOpacity>
-                </View>
+                        <TouchableOpacity onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
+                            <Text>Ajouter comme ami</Text>
+                        </TouchableOpacity>
+                     </View>   
+
+                        
+                
+
                 <Text style={styles.site}>{dataEvent.website}</Text> 
                 <Text style={styles.type}>{dataEvent.type}</Text>
                 <Text style={styles.date}>{formatDateToFrenchLocale(date)}</Text>
@@ -162,8 +168,7 @@ const user = useSelector((state) => state.user.value);
                 <Pressable style={{ ...styles.button,backgroundColor: isParticiped ? 'white' : '#1e064e'}} onPress={()=>handleParticipate()}>
                     <Text style={{color: isParticiped ?  '#1e064e': 'white',fontWeight:"bold",fontSize:20}}>Je participe</Text>
                 </Pressable>
-                <View 
-        ></View>
+                
                 <Pressable style={{ ...styles.button,backgroundColor: isInterrested ? 'white' : '#1e064e'}} onPress={()=>handleInterrested()}>
                     <Text style={{color: isInterrested ?  '#1e064e': 'white',fontWeight:"bold",fontSize:20}}>Interressé</Text>
                 </Pressable>

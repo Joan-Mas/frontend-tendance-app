@@ -16,7 +16,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector, useDispatch } from "react-redux";
 import { setOpenModal } from "../../reducers/openModal";
 import { login, logout } from "../../reducers/user";
-import { adress } from "../adress";
+import { adress } from "../../adress";
 export default function Modale() {
   const isModalOpen = useSelector((state) => state.openModal.value);
   const dispatch = useDispatch();

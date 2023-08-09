@@ -270,7 +270,7 @@ export default function MessageScreen(props) {
 
   const handleSendAMessage = () => {
     if (addMessage) {
-      socket.emit("messageSentToBack", addMessage, room);
+     
       fetch(`http://${adress}/messagerie/addMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -278,6 +278,7 @@ export default function MessageScreen(props) {
       })
       .then(response => response.json())
       .then(data => {
+        socket.emit("messageSentToBack", addMessage, room);
         console.log(data);
       });
     }
