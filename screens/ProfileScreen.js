@@ -108,24 +108,24 @@ useEffect(() => {
  
            
              <View style={styles.viewParam}>
-                
-                 <FontAwesome name="gears" size={30} color={"#161519"} />
+                <TouchableOpacity style={styles.viewLogout} onPress={()=>dispatch(logout())}>
+                <Text style={styles.textLogout}>LOGOUT</Text>
+            </TouchableOpacity>
+                 <FontAwesome style={styles.viewPar} name="gears" size={30} color={"#161519"} />
+                 
             </View>
             
              <View style={styles.viewName}>
                  <Text>{user.username}</Text>
              </View>
             
+             
 
-          
+
+
              <View style={styles.viewIcon}>
-
-    
-                 <TouchableOpacity onPress={()=>dispatch(logout())}><Text>LOGOUT</Text></TouchableOpacity>
-
-  
                  <TouchableOpacity style={styles.icon} onPress={()=>handleMesAmis()}>
-                    <FontAwesome name="users" size={30} color={"#1e064e"} />
+                    <FontAwesome name="users" size={30} color={"#161519"} />
                     <Text style={styles.textIcon}>Mes amis</Text>
                 </TouchableOpacity>
               
@@ -185,9 +185,26 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         marginTop:15
     },
+    viewLogout:{
+        margin:20,
+            backgroundColor:"#161519",
+            padding:10,
+            borderRadius:20,
+    },
+    textLogout:{
+        color:"white",
+        fontWeight:"bold"
+    },
     viewParam:{
-        alignSelf:"flex-end",
+        flexDirection:"row",
+        width:"100%",
+        justifyContent:"space-between",
+        alignItems:"center",
+        alignContent:"center",
         margin:5
+    },
+    viewPar:{
+        margin:10
     },
     viewIcon: {
         flexDirection:"row",

@@ -117,6 +117,8 @@ const user = useSelector((state) => state.user.value);
     }
 
     const handleAjouterUnAmi = () =>{
+        console.log('user._id :>> ', user._id);
+        console.log('dataEvent._id :>> ', dataEvent._id);
         fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -149,7 +151,7 @@ const user = useSelector((state) => state.user.value);
                 <View>
                         <Text style={styles.textajoutButton}>{dataEvent.creator}</Text>
                         <TouchableOpacity onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
-                            <Text>Ajouter comme ami</Text>
+                            <Text style={styles.text}>Ajouter le creator comme ami</Text>
                         </TouchableOpacity>
                      </View>   
 
@@ -249,5 +251,14 @@ const styles = StyleSheet.create({
         
         margin:10,
         borderRadius:10
+    },
+    ajoutButton:{
+        backgroundColor:"pink",
+        padding:15,
+        borderRadius:10,
+    },
+    text:{
+        color:"white",
+        fontWeight:"bold"
     },
 })
