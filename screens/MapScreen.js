@@ -212,22 +212,27 @@ export default function MapScreen(props) {
     if (timeToFilter === "today") {
       finalDataBase = events;
       positionBottom = -50
+      
     } else {
       finalDataBase = ForFilterDate(events, timeToFilter);
-      positionBottom = -50
+      positionBottom = -50;
+      
     }
   } else {
     if (searchFilter === "creator") {
       finalDataBase = ForFilterCreator(events, researchLowerCase);
       positionBottom = 20
+      
     }
     if (searchFilter === "type") {
       finalDataBase = ForFilterType(events, researchLowerCase);
       positionBottom = 20
+     
     }
     if (searchFilter === "eventName") {
       finalDataBase = ForFilterEventName(events, researchLowerCase);
       positionBottom = 20
+      
     }
   }
   if (isResearch) {
@@ -603,7 +608,7 @@ export default function MapScreen(props) {
             flexDirection: "row",
             alignItems: "center",
             borderWidth: 1,
-            bottom: -515,
+            bottom: positionHide,
             left: 15,
             backgroundColor: "white",
             padding: 10,
