@@ -279,6 +279,7 @@ export default function MessageScreen(props) {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        setAddMessage("");
       });
     }
   }
@@ -300,11 +301,12 @@ export default function MessageScreen(props) {
       <TouchableOpacity onPress={handleBack} style={styles.goBack}>
         <Text>RETOUR mes Amis</Text>
       </TouchableOpacity>
-      <Text>Discussion avec JOJO</Text>
+      <Text>Discussion avec {conversation.idAmi}</Text>
       <ScrollView style={styles.messageContainer}>
         {messageDisplay.length > 0 ? messageDisplay : <Text>Vous n'avez pas de message</Text>}
       </ScrollView>
-      <TextInput
+      <View style={styles.SentmessageContainer}>
+        <TextInput
         placeholder="Enter Your Message"
         onChangeText={(value) => setAddMessage(value)}
         value={addMessage}
@@ -313,6 +315,8 @@ export default function MessageScreen(props) {
       <TouchableOpacity style={styles.sendAMessage} onPress={handleSendAMessage}>
         <Text>Envoyer un message</Text>
       </TouchableOpacity>
+      </View>
+      
     </KeyboardAvoidingView>
   );
 }
@@ -331,28 +335,32 @@ const styles = StyleSheet.create({
     margin: 20
   },
   messageContainer: {
-    backgroundColor: "gray",
+    backgroundColor: "white",
     margin: 10,
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center'
+    width:"80%"
   },
   friendMessage: {
-    backgroundColor: "red",
+    backgroundColor: "#e8e8e9",
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
     alignSelf: 'flex-start'
   },
   userMessage: {
-    backgroundColor: "blue",
+    backgroundColor: "#498ffe",
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
     alignSelf: 'flex-end'
   },
+  SentmessageContainer:{
+    flexDirection:"row",
+    width:"80%",
+    backgroundColor:"gray"
+  },
   input: {
-    backgroundColor: "yellow",
+    backgroundColor: "#e8e8e9",
     height: 30,
     width: 130,
     margin: 10
@@ -361,7 +369,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 30,
     alignItems: 'center',
-    backgroundColor: '#ec6e5b',
+    backgroundColor: '#498ffe',
     borderRadius: 10,
   }
 });
