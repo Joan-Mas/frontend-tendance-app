@@ -787,7 +787,7 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: "absolute",
-    top: 15,
+    top: 18,
     right: 30,
     padding: 10,
   },
