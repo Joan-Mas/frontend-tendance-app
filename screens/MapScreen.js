@@ -35,6 +35,8 @@ import { setOpenModal } from "../reducers/openModal";
 
 import eventData from "../data/data";
 
+import { useIsFocused } from '@react-navigation/native';
+
 const BACKEND_ADDRESS = "https://backend-tendance.vercel.app";
 import { adress } from "../adress";
 
@@ -57,7 +59,7 @@ export default function MapScreen(props) {
   const currentPositionMarker = require("../assets/photoProfile.jpg");
   const [initialRegion, setInitialRegion] = useState(null);
   const mapRef = useRef(null); //! constante pour utiliser handleMarkerPress et se centrer sur l'event qui pop up
-
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     (async () => {
@@ -84,7 +86,7 @@ export default function MapScreen(props) {
     })();
     console.log('redux',researchLowerCase)
     
-  }, []);
+  }, [isFocused]);
 
   //se centrer sur l'event qui pop up
   const handleMarkerPress = (event) => {
