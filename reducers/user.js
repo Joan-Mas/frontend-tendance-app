@@ -10,6 +10,8 @@ export const userSlice = createSlice({
   reducers: {
     login: (state, action) => { // A mettre dans la fonction Login
       state.value = action.payload;
+      console.log(action.payload)
+
     },
     logout: (state, action) => { // A mettre dans la fonction Logout
       state.value = null;
@@ -25,7 +27,7 @@ export const userSlice = createSlice({
       state.value.events.partEvents.push(action.payload);
     },
     removeParticipant :(state, action) =>  {
-        // state.value.events.partEvents.filter(el => el!== action.payload) //? on filtre avec l'id de l'event
+      state.value.events.partEvents.filter(el => el!== action.payload) //? on filtre avec l'id de l'event
     },
     addInter :(state, action) =>  {
         console.log(action.payload); //todo on doit push l'id de l'event

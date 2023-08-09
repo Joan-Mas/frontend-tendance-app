@@ -74,7 +74,7 @@ const user = useSelector((state) => state.user.value);
     const handleParticipate = ()=>{
         setIsParticiped(!isParticiped)
         if(!isParticiped){
-            // todo dispatch(addParticipant(dataEvent.id));
+            dispatch(removeParticipant(dataEvent.id));
             fetch(`http://${adress}/user/participated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -83,7 +83,7 @@ const user = useSelector((state) => state.user.value);
                     console.log("add participant ");
                 })
         }else{
-            // todo dispatch(addParticipant(dataEvent.id))
+            dispatch(addParticipant(dataEvent.id))
             fetch(`http://${adress}/user/notParticipated`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -99,6 +99,7 @@ const user = useSelector((state) => state.user.value);
     const handleInterrested = ()=>{
         setIsInterrested(!isInterrested)
         if(!isInterrested){
+            dispatch(removeInter(dataEvent.id));
             fetch(`http://${adress}/user/interested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -107,6 +108,7 @@ const user = useSelector((state) => state.user.value);
                     console.log("add intérresent ");
                 })
         }else{
+            dispatch(addInter(dataEvent.id))
             fetch(`http://${adress}/user/notInterested`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -153,7 +155,7 @@ const user = useSelector((state) => state.user.value);
                 <View>
                         <Text style={styles.textajoutButton}>{dataEvent.creator}</Text>
                         <TouchableOpacity disabled={isAddingFriend} onPress={()=>handleAjouterUnAmi()} style={styles.ajoutButton}>
-                            <Text>Ajouter comme ami</Text>
+                            <Text style={styles.text}>Ajouter le creator comme ami</Text>
                         </TouchableOpacity>
                      </View>   
 
@@ -253,5 +255,14 @@ const styles = StyleSheet.create({
         
         margin:10,
         borderRadius:10
+    },
+    ajoutButton:{
+        backgroundColor:"pink",
+        padding:15,
+        borderRadius:10,
+    },
+    text:{
+        color:"white",
+        fontWeight:"bold"
     },
 })
