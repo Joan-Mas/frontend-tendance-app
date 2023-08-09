@@ -608,7 +608,7 @@ export default function MapScreen(props) {
             flexDirection: "row",
             alignItems: "center",
             borderWidth: 1,
-            bottom: positionHide,
+            bottom: -515,
             left: 15,
             backgroundColor: "white",
             padding: 10,
