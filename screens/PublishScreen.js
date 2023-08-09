@@ -20,7 +20,13 @@ import Modale from "./components/Modale";
 import { setOpenModal } from "../reducers/openModal";
 import { adress } from "../adress";
 import { addEvent } from "../reducers/events";
+
+import * as ImagePicker from 'expo-image-picker'
+import * as ImageManipulator from 'expo-image-manipulator';
+
 export default function PublishScreen() {
+
+  //! 
   //todo style mieux !
   // todo Price gerer mieux mettre un input correct
   // todo Status Bar et KeyboardAvoidinView
@@ -44,7 +50,35 @@ export default function PublishScreen() {
 
   // Afficher si event publish ou pas
   const [affiche, setAffiche] = useState(true);
+  //!
+  const handlePictureImport = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (status !== 'granted') {
+      alert('Permission denied')
+    }
 
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1
+    })
+
+    console.log(result)
+
+    const compressedImage = await ImageManipulator.manipulateAsync(
+      result.assets[0].uri,
+      [{ resize: { width: 300, height: 300 } }],
+      { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+    );
+
+    setPicture(result.assets[0].uri)
+
+    const formData = new FormData();
+
+  }
+
+  //!
   //ResetAll
   const handleResetAll = () => {
     setAffiche(true);
@@ -159,18 +193,7 @@ export default function PublishScreen() {
     setShowTimeEndPicker(false);
   };
 
-  // publier
-  // creator: 'user',
-  // 	eventName: 'GymTonic2000',
-  //     type: 'sport',
-  //     date: '2023-11-11',
-  //     hourStart: '07:45',
-  //     hourEnd: '08:45',
-  //     address: 'rue de Sèze 69006 Lyon',
-  //     price: '3',
-  //     website: '',
-  //     description: 'Lorem ipsum dolor sit amet. Qui voluptates internos nam inventore atque aut culpa repellendus ut velit officia. Et velit vero sed velit reiciendis ut accusantium dolorem cum voluptates corporis sit quidem architecto.',
-  //     eventCover: '',
+
 
   const user = useSelector((state) => state.user.value);
 
@@ -237,6 +260,15 @@ export default function PublishScreen() {
       });
 
 
+  };
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const pickImage = () => {
+    ImagePicker.launchImageLibrary({}, response => {
+      if (!response.didCancel && !response.error) {
+        setSelectedImage(response.uri);
+      }
+    });
   };
 
   return !user ? (
@@ -450,8 +482,8 @@ export default function PublishScreen() {
           </View>
           <Text>Ajouter des amis</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.btnAjout}>
+        
+        <TouchableOpacity style={styles.btnAjout} onPress={()=>pickImage()}>
           <View style={styles.plus}>
             <FontAwesome name="plus" size={15} color={"white"} />
           </View>
