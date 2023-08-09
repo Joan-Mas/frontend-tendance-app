@@ -19,7 +19,6 @@ import * as Location from "expo-location";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 
-
 import ForFilterCreator from "./components/ForFilterCreator";
 import ForFilterType from "./components/ForFilterType";
 import ForFilterEventName from "./components/ForFilterEventName";
@@ -47,8 +46,8 @@ export default function MapScreen(props) {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [research, setResearch] = useState(""); // état de la recherche en Input
-  const [isResearch, setIsResearch] = useState(false); // état recherche active/inactive
-  const [searchFilter, setSearchFilter] = useState("creator");
+  const [isResearch, setIsResearch] = useState(true); // état recherche active/inactive
+  const [searchFilter, setSearchFilter] = useState("type");
   const [timeToFilter, setTimeToFilter] = useState("today");
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -58,6 +57,7 @@ export default function MapScreen(props) {
   const currentPositionMarker = require("../assets/photoProfile.jpg");
   const [initialRegion, setInitialRegion] = useState(null);
   const mapRef = useRef(null); //! constante pour utiliser handleMarkerPress et se centrer sur l'event qui pop up
+
 
   useEffect(() => {
     (async () => {
@@ -70,31 +70,21 @@ export default function MapScreen(props) {
         });
       }
     })();
-
-    // fetch(`${BACKEND_ADDRESS}/events/events`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data) {
-    //       const filteredEvents = data.filter((event) => new Date(event.date) >= new Date());
-    //       dispatch(setEvents(filteredEvents));
-    //     }
-    //     //console.log("Fetch des events dans map screen au chargement de la page",data);
-    //   });
+    console.log('redux',researchLowerCase)
+    
   }, []);
 
+  //se centrer sur l'event qui pop up
+  const handleMarkerPress = (event) => {
+    console.log({ result: event });
 
-//se centrer sur l'event qui pop up
-const handleMarkerPress = (event) => { 
-
-  console.log({result: event});
-
-
-  mapRef.current.animateToRegion({
-    latitude: event.latitude + 0.05,
-    longitude: event.longitude,
-    latitudeDelta: 0.2,
-    longitudeDelta: 0.2,})
-};
+    mapRef.current.animateToRegion({
+      latitude: event.latitude + 0.05,
+      longitude: event.longitude,
+      latitudeDelta: 0.2,
+      longitudeDelta: 0.2,
+    });
+  };
   //Barre de recherche
 
   const toggleDatePicker = () => {
@@ -143,24 +133,22 @@ const handleMarkerPress = (event) => {
     //!filtre actif ---------------------------------------------------------------------------------------------------
   };
 
-
   const handleSearch = () => {
     dispatch(storeResearch(research));
     setResearch("");
     setIsResearch(true);
   };
 
-const handlePress = (data)=>{
-  
-    if(user===null){
+  const handlePress = (data) => {
+    if (user === null) {
       //console.log("null");
-        dispatch(setOpenModal(!isModalOpen))
-    }else{
+      dispatch(setOpenModal(!isModalOpen));
+    } else {
       //console.log(data);
-        props.navigation.navigate('Event', { screen: 'EventScreen' });
-        dispatch(setEvent(data))
-    } 
-}
+      props.navigation.navigate("Event", { screen: "EventScreen" });
+      dispatch(setEvent(data));
+    }
+  };
   const handleCloseFilter = () => {
     dispatch(resetResearch());
     setIsResearch(false);
@@ -171,7 +159,7 @@ const handlePress = (data)=>{
     setSearchFilter("type");
     dispatch(storeResearch(data.type));
     setIsResearch(true);
-  }
+  };
 
   const handleFilter = () => {
     if (searchFilter === "creator") {
@@ -199,11 +187,11 @@ const handlePress = (data)=>{
       setTimeToFilter("today");
       Opaque = 0;
     }
-  }
+  };
 
   if (!isResearch || searchFilter !== "date") {
     finalDataBase = events;
-    console.log({NewDatabase: events});
+    console.log({ NewDatabase: events });
   }
   if (!isResearch || searchFilter === "date") {
     if (timeToFilter === "today") {
@@ -221,7 +209,6 @@ const handlePress = (data)=>{
     if (searchFilter === "eventName") {
       finalDataBase = ForFilterEventName(events, researchLowerCase);
     }
-
   }
   if (isResearch) {
     opacityChange = 1;
@@ -482,28 +469,26 @@ const handlePress = (data)=>{
     }
   };
 
-  
   const foodImg = require("../assets/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg");
   const musicImg = require("../assets/marcela-laskoski-YrtFlrLo2DQ-unsplash.jpg");
   const natureImg = require("../assets/tim-swaan-eOpewngf68w-unsplash.jpg");
   const scienceImg = require("../assets/milad-fakurian-58Z17lnVS4U-unsplash.jpg");
   const artImg = require("../assets/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg");
   const sportImg = require("../assets/august-phlieger-CREqtqgBFcU-unsplash.jpg");
-  
 
   const getImageByType = (eventType) => {
     switch (eventType) {
-      case 'Food':
+      case "Food":
         return foodImg;
-      case 'Music':
+      case "Music":
         return musicImg;
-      case 'Nature':
+      case "Nature":
         return natureImg;
-      case 'Science':
+      case "Science":
         return scienceImg;
-      case 'Art':
+      case "Art":
         return artImg;
-      case 'Sport':
+      case "Sport":
         return sportImg;
     }
   };
@@ -517,17 +502,17 @@ const handlePress = (data)=>{
 
   const getColorIconByType = (eventType) => {
     switch (eventType) {
-      case 'Food':
+      case "Food":
         return foodColor;
-      case 'Music':
+      case "Music":
         return musicColor;
-      case 'Nature':
+      case "Nature":
         return natureColor;
-      case 'Science':
+      case "Science":
         return scienceColor;
-      case 'Art':
+      case "Art":
         return artColor;
-      case 'Sport':
+      case "Sport":
         return sportColor;
     }
   };
@@ -539,29 +524,32 @@ const handlePress = (data)=>{
         backgroundColor="white" // Set the background color of the status bar
       />
       <Modale></Modale>
-        <View style={styles.researchContainer}>
-          <TextInput
-            placeholder="Recherche"
-            onChangeText={(value) => setResearch(value)}
-            value={research}
-            style={styles.input}
-          />
-          <TouchableOpacity onPress={() => handleSearch()} style={styles.searchButton}>
-            <FontAwesome name={"search"} size={30} color={"black"} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleCloseFilter()}
-            style={{
-              position: "absolute",
-              top: 90,
-              right: 40,
-              opacity: opacityChange,
-            }}
-          >
-            <FontAwesome name={"times"} size={30} color={"white"} />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.researchContainer}>
+        <TextInput
+          placeholder="Recherche"
+          onChangeText={(value) => setResearch(value)}
+          value={research}
+          style={styles.input}
+        />
         <TouchableOpacity
+          onPress={() => handleSearch()}
+          style={styles.searchButton}
+        >
+          <FontAwesome name={"search"} size={30} color={"black"} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleCloseFilter()}
+          style={{
+            position: "absolute",
+            top: 90,
+            right: 40,
+            opacity: opacityChange,
+          }}
+        >
+          <FontAwesome name={"times"} size={30} color={"white"} />
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
         onPress={() => handleFilter()}
         style={styles.filterButton}
       >
@@ -619,7 +607,7 @@ const handlePress = (data)=>{
       )}
 
       <MapView
-      ref={mapRef} //!_______________________________________________
+        ref={mapRef} //!_______________________________________________
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
@@ -637,49 +625,73 @@ const handlePress = (data)=>{
         }
         handleInitialRegion={handleInitialRegion}
       >
- 
-        {currentPosition && 
-        <Marker coordinate={currentPosition} title="My position" anchor={{ x: 0.5, y: 0.5 }} >
-           <Image source={currentPositionMarker} style={styles.currentPositionIcon} />
-          </Marker>} 
+        {currentPosition && (
+          <Marker
+            coordinate={currentPosition}
+            title="My position"
+            anchor={{ x: 0.5, y: 0.5 }}
+          >
+            <Image
+              source={currentPositionMarker}
+              style={styles.currentPositionIcon}
+            />
+          </Marker>
+        )}
 
         {finalDataBase.map((event, i) => (
-
           <Marker
             key={i}
-            coordinate={{ latitude: event.latitude, longitude: event.longitude }}
+            coordinate={{
+              latitude: event.latitude,
+              longitude: event.longitude,
+            }}
             title={event.eventName}
             onPress={() => handleMarkerPress(event)}
           >
-            <Image source={getMarkerIconByType(event.type)} style={styles.markerImage} />
-            
+            <Image
+              source={getMarkerIconByType(event.type)}
+              style={styles.markerImage}
+            />
+
             <Callout tooltip onPress={() => handlePress(event)} title="Event">
               <View>
-              <View style={styles.bubble}> 
-                <Image source={getImageByType(event.type)} style={styles.bubbleImage}/>
-                <Text style={styles.eventName}>
-                      {event.eventName}
-                    </Text>
-                  
-                <Text style={styles.typeEvent}>{event.type} <FontAwesome
-                        name={"circle"}
-                        size={15}
-                        color={getColorIconByType(event.type)}
-                      /></Text>
-                {/* <Text>{event.website}</Text> */}
-                <Text style={styles.textStyle}>{formatDateToFrenchLocale(event.date)}</Text> 
-                <Text style={styles.hours}>{format(new Date (event.hourStart), "HH'h'mm")}-{format(new Date (event.hourEnd), "HH'h'mm")}</Text>
-                <Text style={styles.priceEvent}>Prix : {event.price} €</Text>
-                <TouchableOpacity style={styles.goToEvent}></TouchableOpacity>
-              </View>
-              {/* <View style={styles.arrowBorder}/>
+                <View style={styles.bubble}>
+                  <Image
+                    source={getImageByType(event.type)}
+                    style={styles.bubbleImage}
+                  />
+                  <Text style={styles.eventName}>{event.eventName}</Text>
+
+                  <Text style={styles.typeEvent}>
+                    {event.type}{" "}
+                    <FontAwesome
+                      name={"circle"}
+                      size={15}
+                      color={getColorIconByType(event.type)}
+                    />
+                  </Text>
+                  {/* <Text>{event.website}</Text> */}
+                  <Text style={styles.textStyle}>
+                    {formatDateToFrenchLocale(event.date)}
+                  </Text>
+                  <Text style={styles.hours}>
+                    {format(new Date(event.hourStart), "HH'h'mm")}-
+                    {format(new Date(event.hourEnd), "HH'h'mm")}
+                  </Text>
+                  <Text style={styles.priceEvent}>Prix : {event.price} €</Text>
+                  <TouchableOpacity style={styles.goToEvent}></TouchableOpacity>
+                </View>
+                {/* <View style={styles.arrowBorder}/>
               <View style={styles.arrow} /> */}
               </View>
             </Callout>
           </Marker>
         ))}
       </MapView>
-      <TouchableOpacity onPress={() => handleSubmit()} style={styles.pressableButton}>
+      <TouchableOpacity
+        onPress={() => handleSubmit()}
+        style={styles.pressableButton}
+      >
         <FontAwesome name={"bars"} size={30} color={"#b2b2b2"} />
       </TouchableOpacity>
 
@@ -808,17 +820,17 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "white",
   },
-  bubble:{
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  bubble: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     //alignSelf: 'flex-start',
     width: 250,
-    height: 'auto',
+    height: "auto",
     minHeight: 250,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 20,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 0.5,
     paddingBottom: 10,
     marginBottom: 20,
@@ -826,7 +838,7 @@ const styles = StyleSheet.create({
   },
   bubbleImage: {
     width: 250,
-    height: 'auto',
+    height: "auto",
     minHeight: 130,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
@@ -860,12 +872,12 @@ const styles = StyleSheet.create({
     // marginBottom: -15
   },
   goToEvent: {
-      //textAlign:"center",
-        alignContent:"center",
-        justifyContent:"center",
-        // width:130,
-        // height:40,
-        // margin:10,
-        // borderRadius:10
-  }
+    //textAlign:"center",
+    alignContent: "center",
+    justifyContent: "center",
+    // width:130,
+    // height:40,
+    // margin:10,
+    // borderRadius:10
+  },
 });

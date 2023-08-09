@@ -56,7 +56,7 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Selection" component={SelectionScreen} />
+      
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Publish" component={PublishScreen} />
       <Tab.Screen name="Trend" component={TrendScreen} />
@@ -70,6 +70,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Selection" component={SelectionScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="List" component={ListScreen} />
           <Stack.Screen name="Event" component={EventScreen} />
