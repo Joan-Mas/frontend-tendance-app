@@ -48,7 +48,7 @@ export default function PublishScreen() {
   const [selectedOptionType, setSelectedOptionType] = useState(null);
   const [selectedOptionAccess, setSelectedOptionAccess] = useState(null);
 
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState(null);
 
   // Afficher si event publish ou pas
   const [affiche, setAffiche] = useState(true);
@@ -74,11 +74,28 @@ export default function PublishScreen() {
     //   { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
     // );
 
-    setPicture(result.assets[0].uri)
+    
 
-    // const formData = new FormData();
+    const formData= new FormData();
+  
 
+    formData.append('photoFromFront', {
+    uri: result.assets[0].uri,
+    name: 'photo.jpg',
+    type: 'image/jpeg',
+    });
+
+    fetch('http://172.20.10.11:3000/events/upload', {
+    method: 'POST',
+    body: formData,
+    }).then((response) => response.json())
+    .then((data) => {
+      
+      setPicture(data.url)
+    });
   }
+
+  
 
   //!
   //ResetAll
@@ -497,6 +514,7 @@ export default function PublishScreen() {
       <TouchableOpacity
         style={styles.btnPublier}
         onPress={() => handlePublish()}
+        disabled={picture?false:true}
       >
         <Text style={styles.textStylePublish}>Publier</Text>
       </TouchableOpacity>
@@ -505,8 +523,9 @@ export default function PublishScreen() {
     <View style={styles.container}>
       <Text>Événement créé d^_^b</Text>
       <TouchableOpacity
-        onPress={() => handleResetAll()}
+        onPress={() => {handleResetAll();setPicture(null)}}
         style={styles.btnRePublier}
+        
       >
         <Text style={styles.textStylePublish}>Publier de nouveau !</Text>
       </TouchableOpacity>
