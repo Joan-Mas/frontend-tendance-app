@@ -671,7 +671,7 @@ export default function MapScreen(props) {
         {currentPosition && (
           <Marker
             coordinate={currentPosition}
-            title="My position"
+            title={'David?'}
             anchor={{ x: 0.5, y: 0.5 }}
           >
             <Image
