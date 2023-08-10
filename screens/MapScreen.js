@@ -84,7 +84,7 @@ export default function MapScreen(props) {
 
 
     })();
-    console.log('redux',researchLowerCase)
+    // console.log('redux',researchLowerCase)
     
   }, [isFocused]);
 
@@ -109,7 +109,7 @@ export default function MapScreen(props) {
     if (selected) {
       setSelectedDate(selected);
       const Formatage = formatDate(selected);
-      console.log(Formatage);
+      // console.log(Formatage);
       setTimeToFilter(Formatage);
 
       const formattedDate = selected.toLocaleDateString("fr-FR", {
@@ -137,7 +137,7 @@ export default function MapScreen(props) {
         handleDateChange(null, selectedDate);
       }
     } catch ({ code, message }) {
-      console.warn("Cannot open date picker", message);
+      // console.warn("Cannot open date picker", message);
     }
   };
 
@@ -700,7 +700,7 @@ export default function MapScreen(props) {
               <View>
                 <View style={styles.bubble}>
                   <Image
-                    source={getImageByType(event.type)}
+                    source={{uri:event.eventCover}}
                     style={styles.bubbleImage}
                   />
                   <Text style={styles.eventName}>{event.eventName}</Text>

@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setEvent } from "../reducers/event";
+import event, { setEvent } from "../reducers/event";
 import { storeResearch, resetResearch } from "../reducers/list";
 import { format } from "date-fns";
 
@@ -52,6 +52,7 @@ export default function ListScreen({ navigation }) {
   //---------------------------------------------------------------------
 
   const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.openModal.value);
   const reduxResearch = useSelector((state) => state.list.value);
   const researchLowerCase = reduxResearch.toLowerCase();
 
@@ -332,7 +333,7 @@ export default function ListScreen({ navigation }) {
                   elevation: 5,
                 }}
               >
-                <Image source={imageType} style={styles.eventImage} />
+                <Image source={{uri:data.eventCover}} style={styles.eventImage} />
                 <View style={styles.containerTop}>
                   <TouchableOpacity onPress={() => handleFilterType(data)}>
                     <Text style={styles.eventName}>
