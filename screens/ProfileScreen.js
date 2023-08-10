@@ -60,7 +60,6 @@ useEffect(() => {
         </Pressable>
       ));
         setFuturEvents(eventsFutur);
-        setIsReloadProfil(true);
     });
   } if(!user) {
     console.log("useEffect parti2");
