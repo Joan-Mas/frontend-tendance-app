@@ -42,6 +42,8 @@ export default function ProfileScreen(props) {
  const [futurEvents, setFuturEvents] = useState([]);
  const isFocused = useIsFocused();
 
+ // Joyeux anniversaire Jojo la Disco signé Tone le mega chad
+
 useEffect(() => {
   if (user) {
     // console.log("useEffect parti1");
@@ -55,9 +57,9 @@ useEffect(() => {
         // console.log('data',data);
         // dispatch(setEvents(data));
       const eventsFutur = data.map((data, index) => (
-        <Pressable onPress={() => handlePress(data)} key={`futur-${index}`}>
+        <TouchableOpacity onPress={() => handlePress(data)} key={`futur-${index}`}>
           <Event data={data} />
-        </Pressable>
+        </TouchableOpacity>
       ));
         setFuturEvents(eventsFutur);
     });
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
     },
     photoBack:{
         width:"100%",
-        height:200
+        height:100
     },
     photoProfile:{
         alignSelf:"center",
@@ -241,7 +243,8 @@ const styles = StyleSheet.create({
     },
     text:{
         color:"white",
-        fontWeight:"bold"
+        fontWeight:"bold",
+        marginBottom: 10,
     }
 
 })
