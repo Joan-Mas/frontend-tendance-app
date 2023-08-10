@@ -148,7 +148,7 @@ useEffect(() => {
             <ScrollView style={styles.events}>
 
                  <View style={styles.futurEvents}>
-                     <Text style={styles.text}>Événément à venir</Text>
+                     <Text style={styles.text}>Évènement à venir</Text>
                     {futurEvents}
                 </View>
              </ScrollView> 
