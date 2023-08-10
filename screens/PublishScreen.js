@@ -403,14 +403,14 @@ export default function PublishScreen() {
         </View>
 
         <View style={styles.containerDate}>
-          <View style={styles.containerDateOne}>
+          <View >
             {/* Bouton sélection date calendrier */}
 
-            <View style={styles.selectDate}>
+            {/* <View style={styles.selectDate}>
               <TouchableOpacity onPress={toggleDatePicker}>
-                {/* <Text>{dateText ? dateText : "Sélectionner une date"}</Text> */}
+            
               </TouchableOpacity>
-            </View>
+            </View> */}
 
             {Platform.OS === "ios" && (
               <DateTimePicker
@@ -546,6 +546,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
+  containerDate: {
+    flexDirection: "row",
+    // marginTop: 10,
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+
+
   containerDateTwo: {
     flexDirection: "row",
     marginTop: 10,
@@ -557,7 +565,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "rgba(22, 21, 25, 1)",
     borderWidth: 1,
-    height: 30,
+    height: 40,
     width: 100,
     marginLeft: 10,
   },
@@ -567,7 +575,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "rgba(22, 21, 25, 1)",
     borderWidth: 1,
-    height: 30,
+    height: 40,
     marginLeft: 140,
     marginTop: -10,
     width: 70,
@@ -578,7 +586,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "rgba(22, 21, 25, 1)",
     borderWidth: 1,
-    height: 30,
+    height: 40,
     marginLeft: 240,
     marginTop: -10,
     width: 70,

@@ -212,22 +212,27 @@ export default function MapScreen(props) {
     if (timeToFilter === "today") {
       finalDataBase = events;
       positionBottom = -50
+      
     } else {
       finalDataBase = ForFilterDate(events, timeToFilter);
-      positionBottom = -50
+      positionBottom = -50;
+      
     }
   } else {
     if (searchFilter === "creator") {
       finalDataBase = ForFilterCreator(events, researchLowerCase);
       positionBottom = 20
+      
     }
     if (searchFilter === "type") {
       finalDataBase = ForFilterType(events, researchLowerCase);
       positionBottom = 20
+     
     }
     if (searchFilter === "eventName") {
       finalDataBase = ForFilterEventName(events, researchLowerCase);
       positionBottom = 20
+      
     }
   }
   if (isResearch) {
@@ -782,7 +787,7 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: "absolute",
-    top: 15,
+    top: 18,
     right: 30,
     padding: 10,
   },
