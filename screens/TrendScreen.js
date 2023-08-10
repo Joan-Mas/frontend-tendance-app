@@ -105,12 +105,12 @@ export default function TrendScreen(props) {
       ) : (
         
         top.map((event, index) => (
-          <View>
+          <View key={index}>
             
             <Text style={styles.styleTopTitle}>#{index+1}.</Text>
           <TouchableOpacity
             onPress={() => handlePress(event)}
-            // key={index}
+            
             style={styles.eventBlock}
           >
             <Image
