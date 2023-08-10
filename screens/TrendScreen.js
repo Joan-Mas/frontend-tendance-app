@@ -114,7 +114,8 @@ export default function TrendScreen(props) {
             style={styles.eventBlock}
           >
             <Image
-              source={getImageByType(event.type)}
+              
+              source={{uri:event.eventCover}}
               style={styles.eventImage}
             />
             <View style={styles.containerTop}>
