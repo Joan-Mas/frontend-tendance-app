@@ -133,10 +133,10 @@ useEffect(() => {
                 </TouchableOpacity>
               
           
-                 <View style={styles.icon}>
+                 {/* <View style={styles.icon}>
                      <FontAwesome name="rocket" size={30} color={"#161519"} />
                      <Text style={styles.textIcon}>Messagerie</Text>
-                 </View>
+                 </View>  */}
                 
                  <View style={styles.icon}>
                      <FontAwesome name="heart" size={25}  color={"#161519"}/>
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     },
     viewName:{
         alignSelf:"center",
-        marginTop:15
+        // marginTop:15
     },
     viewLogout:{
         margin:20,
