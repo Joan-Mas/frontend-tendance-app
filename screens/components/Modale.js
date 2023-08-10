@@ -137,7 +137,7 @@ export default function Modale() {
               <TextInput
                 placeholder="password"
                 placeholderTextColor={'grey'}
-                type='password'
+                secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
                 value={password}
                 style={styles.input}
@@ -184,7 +184,7 @@ export default function Modale() {
               <TextInput
                 placeholder="password"
                 placeholderTextColor={'grey'}
-                type='password'
+                secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
                 value={password}
                 style={styles.input}
