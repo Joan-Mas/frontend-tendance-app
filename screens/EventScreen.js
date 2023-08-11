@@ -258,8 +258,9 @@ export default function EventScreen({ navigation: { goBack } }) {
       </View>
       <View
         style={{
+          position: 'absolute',
           width: 200,
-          marginTop: 40,
+          marginTop: 590,
           alignSelf: 'center',
         }}
       >

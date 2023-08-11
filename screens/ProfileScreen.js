@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
 
   events: {
     width: "100%",
-    height: 500,
+    height: 380,
     backgroundColor: "#161519",
     padding: 10,
   },

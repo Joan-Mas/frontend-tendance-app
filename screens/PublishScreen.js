@@ -525,7 +525,7 @@ export default function PublishScreen() {
     
   ) : (
     <View style={styles.container}>
-      <Text>Événement créé d^_^b</Text>
+      <Text>Évènement créé d^_^b</Text>
       <TouchableOpacity
         onPress={() => {handleResetAll();setPicture(null)}}
         style={styles.btnRePublier}
