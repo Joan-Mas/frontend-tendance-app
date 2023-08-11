@@ -162,9 +162,10 @@ export default function EventScreen({ navigation: { goBack } }) {
         <View style={styles.viewText}>
           <View>
             <Text style={styles.name}>
-              {dataEvent.eventName} par {dataEvent.creatorName.username}
+              {dataEvent.eventName} par {dataEvent.creatorName.username}{' '}
+              <FontAwesome name="circle-thin" size={15} color={"white"} /> {format(new Date(dataEvent.date),'dd/MM/yy')}
             </Text>
-
+            <Text style={styles.date}></Text>
             <View>
               <Text style={styles.text}>
                 <FontAwesome
@@ -172,7 +173,7 @@ export default function EventScreen({ navigation: { goBack } }) {
                   name="map-pin"
                   size={15}
                   color={"white"}
-                />{" "}
+                />{"  "}
                 {dataEvent.address}
               </Text>
               <View style={styles.row}>
@@ -183,7 +184,7 @@ export default function EventScreen({ navigation: { goBack } }) {
                     size={15}
                     color={"white"}
                   />
-                  {"  "}
+                  {"  "} 
                   {format(new Date(dataEvent.hourStart), "HH'h'mm")} -{" "}
                   {format(new Date(dataEvent.hourEnd), "HH'h'mm")}{" "}
                 </Text>
@@ -193,7 +194,7 @@ export default function EventScreen({ navigation: { goBack } }) {
                     name="user"
                     size={15}
                     color={"white"}
-                  />{" "}
+                  />{"  "}
                   {membreInterrested} intéressés Entrée : {dataEvent.price}€
                 </Text>
               </View>
@@ -257,8 +258,8 @@ export default function EventScreen({ navigation: { goBack } }) {
       </View>
       <View
         style={{
-          width: 140,
-          marginTop: 50,
+          width: 200,
+          marginTop: 40,
           alignSelf: 'center',
         }}
       >
@@ -317,6 +318,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginVertical: 20,
+    paddingLeft: 10,
   },
   site: {
     color: "white",
@@ -329,8 +331,9 @@ const styles = StyleSheet.create({
   },
   date: {
     color: "white",
-
-    margin: 5,
+    fontSize: 14,
+    paddingLeft: 8,
+    
   },
   adresse: {
     color: "white",
@@ -372,6 +375,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text: {
+    paddingLeft: 10,
     color: "white",
     // fontWeight: "bold",
   },
