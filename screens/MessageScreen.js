@@ -250,8 +250,8 @@ export default function MessageScreen(props) {
       console.log(data.messages);
       if (data.messages) {
         const lastMessages = data.messages.map((message, index) => (
-          <View key={index} style={message.idSenter === conversation.idUser ? styles.userMessage : styles.friendMessage}>
-            <Text style={styles.textGoback}>{message.message}</Text>
+          <View key={index} style={message.idSenter === conversation.idUser ? styles.userMessage: styles.friendMessage}>
+            <Text  style={message.idSenter === conversation.idUser ? styles.textGoback: styles.textGoback2}>{message.message}</Text>
           </View>
         ));
         setMessageDisplay(lastMessages);
@@ -291,7 +291,8 @@ export default function MessageScreen(props) {
   socket.on("messageReceivedToFront", (data) => {
     const newMessage = (
       <View key={messageDisplay.length} style={data.id===conversation.idUser?styles.userMessage:styles.friendMessage}>
-        <Text style={styles.textGoback}>{data.message}</Text>
+        {/* <Text style={styles.textGoback}>{data.message}</Text> */}
+        <Text  style={data.id === conversation.idUser ? styles.textGoback: styles.textGoback2}>{data.message}</Text>
       </View>
     );
     setMessageDisplay(prevMessages => [...prevMessages, newMessage]);
@@ -302,9 +303,10 @@ export default function MessageScreen(props) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-       <TouchableOpacity onPress={handleBack} style={styles.goBack}>
-        <Text style={styles.textGoback}>AMIS</Text>
-      </TouchableOpacity>
+       <TouchableOpacity onPress={()=>handleBack()} style={styles.goBack}>
+            <FontAwesome name="arrow-left" size={20} color={"white"} />
+                <Text style={styles.textGoback}>Amis</Text>
+            </TouchableOpacity>
       
       <ScrollView style={styles.messageContainer}>
       {messageDisplay.length > 0 ? messageDisplay : <Text>Vous n'avez pas de message</Text>}
@@ -328,7 +330,7 @@ export default function MessageScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: 'rgba(255, 204, 204, 1)',
     paddingHorizontal: 16,
     paddingTop: Platform.OS === 'ios' ? 40 : 20,
     alignItems: "center",
@@ -339,21 +341,23 @@ const styles = StyleSheet.create({
     margin: 20
   },
   messageContainer: {
-    backgroundColor: "white",
+    backgroundColor: "rgba(255, 204, 204, 1)",
     margin: 10,
     flex: 1,
     width:"95%"
   },
   friendMessage: {
-    backgroundColor: "#c8c8c9",
+    backgroundColor: "white",
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    marginLeft:4
   },
   userMessage: {
-    backgroundColor: "#498ffe",
+    backgroundColor: "black",
     marginVertical: 5,
+    marginRight:4,
     padding: 10,
     borderRadius: 10,
     alignSelf: 'flex-end'
@@ -363,8 +367,9 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     alignItems:"center",
     width:"95%",
-    backgroundColor:"gray",
-    margin:10
+    backgroundColor:"black",
+    margin:10,
+    borderRadius:10
   },
   input: {
     backgroundColor: "#e8e8e9",
@@ -378,19 +383,27 @@ const styles = StyleSheet.create({
     width: 80,
     height: 30,
     alignItems: 'center',
-    backgroundColor: '#498ffe',
+    backgroundColor: 'rgba(255, 204, 204, 1)',
     borderRadius: 10,
   },
   goBack:{
-    justifyContent:"flex-start",
+    justifyContent:"space-between",
     alignSelf:"flex-start",
+    alignContent:"center",
+    alignItems:"center",
+    flexDirection:"row",
     margin:20,
-    backgroundColor:"#498ffe",
+    backgroundColor:"black",
     padding:10,
     borderRadius:20,
+    
 },
 textGoback:{
     color:"white",
     fontWeight:"bold"
+},
+textGoback2:{
+  color:"black",
+  fontWeight:"bold"
 },
 });

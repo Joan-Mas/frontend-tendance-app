@@ -81,7 +81,7 @@ export default function AmisScreen(props) {
         <View style={styles.container}>
 
             <TouchableOpacity onPress={()=>handleBack()} style={styles.goBack}>
-                
+            <FontAwesome name="arrow-left" size={20} color={"white"} />
                 <Text style={styles.textGoback}>Profile</Text>
             </TouchableOpacity>
 
@@ -97,29 +97,35 @@ export default function AmisScreen(props) {
 
 const styles = StyleSheet.create({
     container: {
-      flexGrow: 1,
-      backgroundColor: '#F9F9F9',
-      paddingHorizontal: 16,
-      paddingTop: Platform.OS === 'ios' ? 40 : 20,
-       alignItems:"center",
-        justifyContent:"center"
+        flexGrow: 1,
+        backgroundColor: '#F9F9F9',
+        paddingHorizontal: 16,
+        paddingTop: Platform.OS === 'ios' ? 40 : 20,
+        alignItems:"center",
+        justifyContent:"center",
+        backgroundColor:"black"
     },
     goBack:{
-        justifyContent:"flex-start",
+        justifyContent:"space-between",
         alignSelf:"flex-start",
+        alignContent:"center",
+        alignItems:"center",
+        flexDirection:"row",
         margin:20,
-        backgroundColor:"#498ffe",
-        padding:10,
+        backgroundColor:"rgba(255, 204, 204, 1)",
+        padding:2,
         borderRadius:20,
+        
     },
     textGoback:{
         color:"white",
-        fontWeight:"bold"
+        fontWeight:"bold",
+        margin:10
     },
     text:{
         fontSize:30,
         fontWeight:"bold",
-        color:"#498ffe"
+        color:"rgba(255, 204, 204, 1)"
     }, 
     friend:{
         flexDirection:"row",
@@ -127,7 +133,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         backgroundColor:"gray",
         margin:10,
-        width:"90%",
+        width:"95%",
         padding:10,
         margin:5,
         borderRadius:5
@@ -140,9 +146,9 @@ const styles = StyleSheet.create({
     },
     sendAMessage:{
         width: 150,
-        height:30,
+        height:35,
         alignItems: 'center',
-        backgroundColor: '#498ffe',
+        backgroundColor: 'rgba(255, 204, 204, 1)',
         borderRadius: 10,
         margin:10
     }
