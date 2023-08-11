@@ -247,8 +247,8 @@ export default function MessageScreen(props) {
       setRoom(data.id);
       const room = data.id;
       socket.emit("joinRoom", room);
-
-      if (data.messages !== null) {
+      console.log(data.messages);
+      if (data.messages) {
         const lastMessages = data.messages.map((message, index) => (
           <View key={index} style={message.idSenter === conversation.idUser ? styles.userMessage : styles.friendMessage}>
             <Text style={styles.textGoback}>{message.message}</Text>

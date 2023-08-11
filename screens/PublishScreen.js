@@ -85,7 +85,7 @@ export default function PublishScreen() {
     type: 'image/jpeg',
     });
 
-    fetch('http://172.20.10.11:3000/events/upload', {
+    fetch(`http://${adress}/events/upload`, {
     method: 'POST',
     body: formData,
     }).then((response) => response.json())

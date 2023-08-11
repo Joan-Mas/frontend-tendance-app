@@ -175,6 +175,7 @@ export default function ListScreen({ navigation }) {
   };
 
   // constante pour rejoindre l'évent sélectionné au onPress---------------------------------------------
+  
   const handlePress = (data) => {
     if (user === null) {
       console.log("null");
@@ -400,6 +401,7 @@ export default function ListScreen({ navigation }) {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        <Modale></Modale>
         <View>
           <TextInput
             placeholder="Recherche"

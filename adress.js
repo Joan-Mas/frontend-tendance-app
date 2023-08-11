@@ -1,1 +1,1 @@
-export  const adress = "10.0.1.104:3000" 
+export  const adress = "10.0.2.81:3000" 
