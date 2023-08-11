@@ -21,6 +21,7 @@ import { setOpenModal } from "../reducers/openModal";
 import { adress } from "../adress";
 import { addEvent } from "../reducers/events";
 
+
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator';
 
@@ -221,6 +222,7 @@ export default function PublishScreen() {
     switch (selectedOptionType) {
       case 1:
         type = "Art";
+
         break;
       case 2:
         type = "Music";
@@ -300,10 +302,10 @@ export default function PublishScreen() {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-    >
+    > 
       <StatusBar backgroundColor="#f1f1f1" barStyle="dark-content" />
-      <ScrollView></ScrollView>
-      <Text style={styles.title}>Créer un event</Text>
+      {/* <ImageBackground source={require('../assets/photoBack.jpg')} style={styles.imageBackground}> */}
+      <Text style={styles.title}><FontAwesome name="rocket" size={10} color={"rgba(22, 21, 25, 1)"} /> Créer un event <FontAwesome name="circle" size={10} color={"rgba(22, 21, 25, 1)"} /></Text>
 
       <View style={styles.viewAccess}>
         {optionsAccess.map((option) => (
@@ -518,7 +520,9 @@ export default function PublishScreen() {
       >
         <Text style={styles.textStylePublish}>Publier</Text>
       </TouchableOpacity>
+      {/* </ImageBackground> */}
     </KeyboardAvoidingView>
+    
   ) : (
     <View style={styles.container}>
       <Text>Événement créé d^_^b</Text>
@@ -536,11 +540,13 @@ export default function PublishScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     paddingBottom: 50,
     paddingTop: 50,
     backgroundColor: "rgba(255, 204, 204, 1)",
     alignItems: "center",
     justifyContent: "center", // Ajout de cette ligne pour centrer verticalement les éléments
+    
   },
   hourFin: {
     marginBottom: 5,
@@ -715,5 +721,14 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     fontSize: 16,
+  },
+
+  imageBackground: {
+    // flex: 1,
+    height: 1000,
+    width: 400,
+    alignItems: "center",
+    justifyContent: "center",
+    // resizeMode: 'cover', // ou 'stretch' en fonction de votre préférence
   },
 });
