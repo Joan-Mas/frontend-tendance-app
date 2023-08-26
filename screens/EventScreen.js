@@ -248,7 +248,7 @@ export default function EventScreen({ navigation: { goBack } }) {
                       textAlign: "center",
                     }}
                   >
-                    Interressé
+                    Intéressé.e
                   </Text>
                 </Pressable>
               </View>

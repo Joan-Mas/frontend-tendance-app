@@ -319,7 +319,7 @@ export default function MessageScreen(props) {
         style={styles.input}
       />
       <TouchableOpacity style={styles.sendAMessage} onPress={handleSendAMessage}>
-        <Text style={styles.textGoback}>Envoyer un message</Text>
+        <Text style={styles.textGoback}>Envoyer</Text>
       </TouchableOpacity>
       </View>
       
@@ -372,6 +372,7 @@ const styles = StyleSheet.create({
     borderRadius:10
   },
   input: {
+    paddingLeft: 10,
     backgroundColor: "#e8e8e9",
     height: 30,
     width: 200,
@@ -383,6 +384,8 @@ const styles = StyleSheet.create({
     width: 80,
     height: 30,
     alignItems: 'center',
+    alignContent:"center",
+    justifyContent: 'center',
     backgroundColor: 'rgba(255, 204, 204, 1)',
     borderRadius: 10,
   },
@@ -400,7 +403,9 @@ const styles = StyleSheet.create({
 },
 textGoback:{
     color:"white",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    
+    flexDirection:'row',
 },
 textGoback2:{
   color:"black",
