@@ -1,40 +1,32 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+//import externe
 import {
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
   Dimensions,
   ScrollView,
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { setEvents } from "../reducers/events";
-import { adress } from "../adress";
+
+//store
+import { useDispatch } from "react-redux";
 import { storeResearch } from "../reducers/list";
 
+//import interne
+import fetchData from "../services/fetchData";
+
+//constante globale
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const BACKEND_ADDRESS = "https://backend-tendance.vercel.app";
+// const BACKEND_ADDRESS = "https://backend-tendance.vercel.app";
 
 export default function SelectionScreen({ navigation }) {
-  const dispatch = useDispatch(); // Déplacez cette ligne à l'intérieur de la fonction
-
-  useEffect(() => {
-    fetch(`http://${adress}/events/events`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          const filteredEvents = data.filter(
-            (event) => new Date(event.date) >= new Date()
-          );
-          dispatch(setEvents(filteredEvents));
-        }
-      });
-  }, []);
+  
+  const dispatch = useDispatch();
+  
+  fetchData(); //appel de la data
 
   return (
     <SafeAreaView contentContainerStyle={styles.container}>
@@ -43,6 +35,8 @@ export default function SelectionScreen({ navigation }) {
         backgroundColor="white" // Set the background color of the status bar
       />
       <ScrollView contentContainerStyle={styles.container}>
+
+        
         <TouchableOpacity
           style={[styles.block, { backgroundColor: "rgba(255, 141, 141, 1)" }]}
           activeOpacity={0.8}
@@ -85,7 +79,7 @@ export default function SelectionScreen({ navigation }) {
           </ImageBackground>
         </TouchableOpacity>
 
-        {/* 4 autres blocs */}
+   
         <TouchableOpacity
           style={[styles.block, { backgroundColor: "rgba(243, 200, 243, 1)" }]}
           activeOpacity={0.8}
