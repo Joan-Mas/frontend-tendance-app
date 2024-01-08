@@ -67,13 +67,7 @@ export default function PublishScreen() {
       quality: 1
     })
 
-    // console.log(result)
-
-    // const compressedImage = await ImageManipulator.manipulateAsync(
-    //   result.assets[0].uri,
-    //   [{ resize: { width: 300, height: 300 } }],
-    //   { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
-    // );
+    
 
     
 
@@ -119,9 +113,9 @@ export default function PublishScreen() {
   // Afiiche Modale
   useEffect(() => {
     if (user) {
-      console.log("useEffect parti1");
+
     } else {
-      console.log("useEffect parti2");
+
       dispatch(setOpenModal(true));
     }
   }, [user]);
@@ -177,7 +171,7 @@ export default function PublishScreen() {
         handleDateChange(null, selectedDate);
       }
     } catch ({ code, message }) {
-      console.warn("Cannot open date picker", message);
+
     }
   };
 
@@ -246,8 +240,7 @@ export default function PublishScreen() {
         access = "Public";
         break;
     }
-    console.log(user._id);
-    console.log('picture :>> ', picture);
+
     let event = {
       creatorName: user._id,
       eventName: name,
@@ -264,9 +257,7 @@ export default function PublishScreen() {
       latitude: null,
       longitude: null,
     };
-    // {"access": "Privée", "address": "Paris", "amis": "", "creator": "64c9035431ebd1b0f73873ee", "date": "2023-08-03T08:57:00.000Z", "description": "", "eventCover": "", "eventName": "a", "hourEnd": "2023-08-02T09:57:00.000Z", "hourStart": "2023-08-02T08:57:21.230Z", "price": "12", "type": "Food"}
-    console.log("event", event);
-    
+
     // todo fetch post pour publier dans la data ...
     setAffiche(false);
     // /publishEvent
@@ -278,7 +269,7 @@ export default function PublishScreen() {
       .then((response) => response.json())
       .then((data) => {
         
-        console.log("pas mal", data); // je renvoie {"result": true}
+
       });
 
 

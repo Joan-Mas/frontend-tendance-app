@@ -21,4 +21,3 @@ export default function formatDateToFrenchLocale(dateStr) {
   
   const originalDate = "2023-08-01";
   const formattedDate = formatDateToFrenchLocale(originalDate);
- // console.log(formattedDate); // Affiche "Mardi 01 Août 2023"

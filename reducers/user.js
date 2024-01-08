@@ -10,7 +10,7 @@ export const userSlice = createSlice({
   reducers: {
     login: (state, action) => { // A mettre dans la fonction Login
       state.value = action.payload;
-      console.log(action.payload)
+
 
     },
     logout: (state, action) => { // A mettre dans la fonction Logout
@@ -22,7 +22,7 @@ export const userSlice = createSlice({
 
 
      addParticipant :(state, action) =>  {
-      console.log(action.payload); //todo on doit push l'id de l'event
+
       // ? cest grace a ce reducer quon va pouvoir savoir si un utilisateur a deja ete interresé par un event ou pas
       state.value.events.partEvents.push(action.payload);
     },
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
       state.value.events.partEvents.filter(el => el!== action.payload) //? on filtre avec l'id de l'event
     },
     addInter :(state, action) =>  {
-        console.log(action.payload); //todo on doit push l'id de l'event
+   
         state.value.events.interEvents.push(action.payload); 
     },
     removeInter :(state, action) =>  {

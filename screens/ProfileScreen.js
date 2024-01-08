@@ -46,7 +46,7 @@ export default function ProfileScreen(props) {
 
   useEffect(() => {
     if (user) {
-      // console.log("useEffect parti1");
+
       fetch(`http://${adress}/user/mesEvents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,8 +54,7 @@ export default function ProfileScreen(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          // console.log('data',data);
-          // dispatch(setEvents(data));
+
           const eventsFutur = data.map((data, index) => (
             <TouchableOpacity
               onPress={() => handlePress(data)}
@@ -68,12 +67,12 @@ export default function ProfileScreen(props) {
         });
     }
     if (!user) {
-      // console.log("useEffect parti2");
+
       dispatch(setOpenModal(true));
     }
   }, [user, isFocused]);
 
-  // console.log('user', user);
+
 
   //! Function _____________________________________________________________________________________________________________________________
 

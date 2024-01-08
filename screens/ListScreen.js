@@ -1,3 +1,4 @@
+// import externe
 import React, { useState } from "react";
 import {
   Image,
@@ -14,66 +15,69 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
+
+//import interne 
+
+//local storage
 import event, { setEvent } from "../reducers/event";
 import { storeResearch, resetResearch } from "../reducers/list";
-import { format } from "date-fns";
 
+// import gestion des filtres 
 import dateList from "./components/dateList";
 import formatDate from "./components/formatDate";
 import formatDateToFrenchLocale from "./components/formatageList";
 import ForFilterCreator from "./components/ForFilterCreator";
 import ForFilterType from "./components/ForFilterType";
 import ForFilterEventName from "./components/ForFilterEventName";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+
 import { adress } from "../adress";
-//!import pour filtre Date
+
+//import pour filtre Date
 import { DatePickerAndroid } from "@react-native-community/datetimepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ForFilterDate from "./components/ForFilterDate";
 import { setOpenModal } from "../reducers/openModal";
 import Modale from "./components/Modale";
 
-//-------------------------------- début de la fonction
+
 
 export default function ListScreen({ navigation }) {
-  const [research, setResearch] = useState(""); // état de la recherche en Input
-  //const [dataDynamic, setdataDynamic] = useState(eventData); // état de la data en réception
-  const [isResearch, setIsResearch] = useState(false); // état recherche active/inactive
+  
+  // gestion de la recherche
+  const [research, setResearch] = useState(""); 
+  const [isResearch, setIsResearch] = useState(false); 
   const [searchFilter, setSearchFilter] = useState("creator");
 
+  // gestion des dates / Datetimepicker
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimeStartPicker, setShowTimeStartPicker] = useState(false);
   const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
   const [timeToFilter, setTimeToFilter] = useState("today");
 
-  //---------------------------------------------------------------------
+  // gestion des dates / Format
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
+  // gestion du local storage / Redux
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.openModal.value);
   const reduxResearch = useSelector((state) => state.list.value);
   const researchLowerCase = reduxResearch.toLowerCase();
-
   const dataDynamic = useSelector((state) => state.events.value);
   const user = useSelector((state) => state.user.value);
 
-  // console.log(dataDynamic);
+  // const globale
   let finalDataBase = [];
-
-  //! DATE (plus mon code)
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const toggleDatePicker = () => {
-    setShowDatePicker(true);
-  };
 
   const handleDateChange = (event, selected) => {
     if (selected) {
       setSelectedDate(selected);
       const Formatage = formatDate(selected);
-      console.log(Formatage);
+
       setTimeToFilter(Formatage);
 
       const formattedDate = selected.toLocaleDateString("fr-FR", {
@@ -83,25 +87,7 @@ export default function ListScreen({ navigation }) {
       });
       setDateText(formattedDate);
       setShowDatePicker(false);
-      //console.log(dateText);
-      //console.log(selected)
-    }
-  };
-  // let Log = timeToFilter.slice(0,10);
-  // console.log(Log);
-  //Affichage du calendrier en Android
-  const showAndroidDatePicker = async () => {
-    try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        date: selectedDate,
-        mode: "calendar",
-      });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        const selectedDate = new Date(year, month, day);
-        handleDateChange(null, selectedDate);
-      }
-    } catch ({ code, message }) {
-      console.warn("Cannot open date picker", message);
+
     }
   };
 
@@ -111,82 +97,44 @@ export default function ListScreen({ navigation }) {
     //!filtre actif ---------------------------------------------------------------------------------------------------
   };
 
-  //! timeeeeeeeeeeeeeeeeeeeeeeeee
-  const toggleTimeStartPicker = () => {
-    setShowTimeStartPicker(true);
-  };
+  // navigation to map
+    const handleMap = () => {
+      navigation.navigate("TabNavigator", { screen: "TabNavigator" });
+    };
+  
+  // open Modal
+    
+    const handlePress = (data) => {
+      if (user === null) {
+        dispatch(setOpenModal(!isModalOpen));
+      } else {
+        navigation.navigate("Event", { screen: "EventScreen" });
+        dispatch(setEvent(data));
+      }
+    };
 
-  const handleTimeStartChange = (event, selected) => {
-    if (selected) {
-      setHourStart(selected);
-    }
-    setShowTimeStartPicker(false);
-  };
-
-  const toggleTimeEndPicker = () => {
-    setShowTimeEndPicker(true);
-  };
-
-  const handleTimeEndChange = (event, selected) => {
-    if (selected) {
-      setHourEnd(selected);
-    }
-    setShowTimeEndPicker(false);
-  };
-
-  const hideTimePicker = () => {
-    setShowTimeStartPicker(false);
-    setShowTimeEndPicker(false);
-  };
-
-  //! END DATE
-
-  // Lance la recherhce ---------------------------------------
+  // Recherche
   const handleSearch = () => {
     dispatch(storeResearch(research));
     setResearch("");
     setIsResearch(true);
-    //console.log(isResearch);
-    // if(searchFilter === "date") {
-    //   console.log("Time");
-    //   finalDataBase = ForFilterDate(eventData, timeToFilter);
-    // }
-    // console.log(finalDataBase);
-    //  return finalDataBase
+  
   };
 
   // Initialise les filtres / Ferme la recherhe
   const handleCloseFilter = () => {
     dispatch(resetResearch());
     setIsResearch(false);
-
-    //console.log(isResearch);
   };
 
+  // 
   const handleFilterType = (data) => {
     setSearchFilter("type");
     dispatch(storeResearch(data.type));
     setIsResearch(true);
   };
 
-  // constante pour rejoindre la map au onPress---------------------------------------------
-  const handleMap = () => {
-    navigation.navigate("TabNavigator", { screen: "TabNavigator" });
-  };
-
-  // constante pour rejoindre l'évent sélectionné au onPress---------------------------------------------
-  
-  const handlePress = (data) => {
-    if (user === null) {
-      console.log("null");
-      dispatch(setOpenModal(!isModalOpen));
-    } else {
-      //console.log(data);
-      navigation.navigate("Event", { screen: "EventScreen" });
-      dispatch(setEvent(data));
-    }
-  };
-
+  // switch filter
   const handleFilter = () => {
     if (searchFilter === "creator") {
       setSearchFilter("type");
@@ -214,12 +162,11 @@ export default function ListScreen({ navigation }) {
       Opaque = 0;
     }
 
-    //console.log(searchFilter);
+
   };
 
-  //console.log({HandleFilter : finalDataBase})
 
-  let newDataBase;
+
 
   if (!isResearch || searchFilter !== "date") {
     finalDataBase = dataDynamic;
@@ -242,20 +189,11 @@ export default function ListScreen({ navigation }) {
     }
   }
 
-  // console.log({ BeforeFiltre: finalDataBase });
-  // const test = finalDataBase[0].date;
-  // console.log({BeforeFiltre : test});
 
   let sortedEvents = finalDataBase
     .slice()
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  //console.log({ sortedEvents: sortedEvents });
-  //console.log(dates.includes(sortedEvents[0].date));
-  //console.log(dates[0]);
-  //console.log((sortedEvents[0].date));
-
-  //!
 
   const today = new Date();
 
@@ -263,17 +201,15 @@ export default function ListScreen({ navigation }) {
   for (let i = 0; i < sortedEvents.length; i++) {
     dateAllEvent.push(sortedEvents[i].date.slice(0, 10));
   }
-  console.log({ MesDates: dateAllEvent });
-  // constante pour obtenir la date du jour
 
-  //renvoie toutes dates des évents à partir de la date du jour et élimine les doublons-------------------------------------------------------
 
+
+  
   const dateEvents = [...new Set(dateAllEvent)].filter(
     (date) => date >= formatDate(today)
   );
 
-  console.log({ MesDates: dateAllEvent });
-  //fonction principale renvoie toute les views avec le bon style en fonction du type---------------------------------------------------------
+  
 
   const dayList = dateEvents.map((data, i) => {
     return (
@@ -312,13 +248,11 @@ export default function ListScreen({ navigation }) {
               imageType = require("../assets/august-phlieger-CREqtqgBFcU-unsplash.jpg");
             }
 
-            // const DateStart = formatDate(data.hourStart);
-
             return (
               <TouchableOpacity
                 key={i}
                 onPress={() => handlePress(data)}
-                //style={styles.eventBlock}
+                
                 style={{
                   backgroundColor: "white",
                   borderWidth: 3,
@@ -380,7 +314,7 @@ export default function ListScreen({ navigation }) {
       </View>
     );
   });
-  // style pour le times des filtres
+
   if (isResearch) {
     opacityChange = 1;
   } else {
@@ -395,8 +329,8 @@ export default function ListScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar
-        barStyle="light-content" // Change to "light-content" if you need white status bar content
-        backgroundColor="white" // Set the background color of the status bar
+        barStyle="light-content" 
+        backgroundColor="white" 
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}

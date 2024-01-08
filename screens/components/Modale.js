@@ -50,8 +50,7 @@ export default function Modale() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log("bite");
+
 
         if (data.result) {
           dispatch(login(data.data));

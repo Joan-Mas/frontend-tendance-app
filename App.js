@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import MapScreen from "./screens/MapScreen";
-
 import PublishScreen from "./screens/PublishScreen";
 import TrendScreen from "./screens/TrendScreen";
 import SelectionScreen from "./screens/SelectionScreen.js";
@@ -17,6 +16,7 @@ import MessageScreen from "./screens/MessageScreen";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+
 import user from "./reducers/user";
 import events from "./reducers/events";
 import event from "./reducers/event";

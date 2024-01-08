@@ -10,8 +10,7 @@ export const listSlice = createSlice({
   reducers: {
     storeResearch: (state, action) => {
       state.value = action.payload;
-      console.log(action.payload);
-      console.log("patate!");
+
     },
     resetResearch: (state) => {
       state.value = "";

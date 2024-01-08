@@ -1,12 +1,12 @@
 export default function ForFilterCreator(data, researchLowerCase) {
-//console.log('CREATOR NAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMME!')
+
 
 
     let newDataBase = []; //!fonction de filtrage
     
     
       for (let i = 0; i < data.length; i++) {
-        console.log({objetFilterCreator: data[i].creatorName.username})
+
         let CompareData = data[i].creatorName.username.toLowerCase();
         if (CompareData.includes(researchLowerCase)) {
           const newObject = {

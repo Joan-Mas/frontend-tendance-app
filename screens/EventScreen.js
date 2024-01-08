@@ -78,7 +78,7 @@ export default function EventScreen({ navigation: { goBack } }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("add participant ");
+
         });
     } else {
       // todo dispatch(addParticipant(dataEvent.id))
@@ -89,7 +89,7 @@ export default function EventScreen({ navigation: { goBack } }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("delete participant ");
+
         });
     }
   };
@@ -104,7 +104,7 @@ export default function EventScreen({ navigation: { goBack } }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("add intérresent ");
+
         });
     } else {
       fetch(`http://${adress}/user/notInterested`, {
@@ -114,14 +114,14 @@ export default function EventScreen({ navigation: { goBack } }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("delete intérresent ");
+
         });
     }
   };
 
   const handleAjouterUnAmi = () => {
-    console.log("user._id :>> ", user._id);
-    console.log("dataEvent._id :>> ", dataEvent._id);
+    // console.log("user._id :>> ", user._id);
+    // console.log("dataEvent._id :>> ", dataEvent._id);
     setIsAddingFriend(true);
     fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
       method: "POST",
@@ -131,14 +131,14 @@ export default function EventScreen({ navigation: { goBack } }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data);
+
         }
       });
   };
 
   // ! Return_____________________________________________________________________________________________________________________________________
-  //console.log("dataEvent.eventCover :>> ", dataEvent.eventCover);
-  console.log(dataEvent);
+
+
   let membreInterrested = dataEvent.users.interUsers.length;
   return (
     <SafeAreaView style={styles.container}>

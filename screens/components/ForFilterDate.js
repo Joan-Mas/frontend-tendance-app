@@ -1,18 +1,13 @@
 export default function ForFilterDate(data, timeToFilter) {
 
-//console.log('Start');
-//console.log(timeToFilter);
-//console.log(data);
-
-    let newDataBase = []; //!fonction de filtrage
+    let newDataBase = []; 
     
      
       for (let i = 0; i < data.length; i++) {
+        
         let CompareData = data[i].date.slice(0,10);
         let DateSliced = timeToFilter.toString().slice(0,10);
-        //console.log(CompareData);
-        //console.log(DateSliced);
-        //console.log("Actif")
+
         if (CompareData === DateSliced) {
           const newObject = {
             creatorName: data[i].creatorName,
@@ -37,7 +32,7 @@ export default function ForFilterDate(data, timeToFilter) {
         }
         
       }
-      // console.log(newDataBase);
+
       return newDataBase
     
     };

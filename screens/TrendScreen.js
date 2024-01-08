@@ -71,22 +71,16 @@ export default function TrendScreen(props) {
     //! qui va trier les events 10 les plus cotés
 
     const sortedEvents = events.slice().sort(function (a, b) {
-      console.log("a :", a.users.interUsers.length);
-      console.log("b :", b.users.interUsers.length);
+
       return b.users.interUsers.length - a.users.interUsers.length;
     });
 
     // Garde les 10 premiers éléments triés
     const resultat = sortedEvents.slice(0, 10);
-    // console.log("resultat",resultat);
+
     setTop(resultat);
 
-    // Affiche la longueur de "partUsers" pour les 10 premiers éléments triés
-    console.log("_______________________________");
 
-    // sortedEvents.forEach(data => {
-    //   console.log(data.users.partUsers.length);
-    // });
   }, []);
 
   return (

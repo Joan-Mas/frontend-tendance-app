@@ -67,7 +67,7 @@ export default function MapScreen(props) {
 
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
-          //console.log({testLocation: location.coords});
+
           setCurrentPosition(location.coords);
         });
       }
@@ -84,13 +84,13 @@ export default function MapScreen(props) {
 
 
     })();
-    // console.log('redux',researchLowerCase)
+
     
   }, [isFocused]);
 
   //se centrer sur l'event qui pop up
   const handleMarkerPress = (event) => {
-    // console.log({ result: event });
+
 
     mapRef.current.animateToRegion({
       latitude: event.latitude + 0.05,
@@ -109,7 +109,7 @@ export default function MapScreen(props) {
     if (selected) {
       setSelectedDate(selected);
       const Formatage = formatDate(selected);
-      // console.log(Formatage);
+
       setTimeToFilter(Formatage);
 
       const formattedDate = selected.toLocaleDateString("fr-FR", {
@@ -119,12 +119,10 @@ export default function MapScreen(props) {
       });
       setDateText(formattedDate);
       setShowDatePicker(false);
-      //console.log(dateText);
-      //console.log(selected)
+
     }
   };
-  // let Log = timeToFilter.slice(0,10);
-  // console.log(Log);
+
   //Affichage du calendrier en Android
   const showAndroidDatePicker = async () => {
     try {
@@ -137,7 +135,7 @@ export default function MapScreen(props) {
         handleDateChange(null, selectedDate);
       }
     } catch ({ code, message }) {
-      // console.warn("Cannot open date picker", message);
+
     }
   };
 
@@ -155,10 +153,10 @@ export default function MapScreen(props) {
 
   const handlePress = (data) => {
     if (user === null) {
-      //console.log("null");
+
       dispatch(setOpenModal(!isModalOpen));
     } else {
-      //console.log(data);
+
       props.navigation.navigate("Event", { screen: "EventScreen" });
       dispatch(setEvent(data));
     }
@@ -166,7 +164,7 @@ export default function MapScreen(props) {
   const handleCloseFilter = () => {
     dispatch(resetResearch());
     setIsResearch(false);
-    //console.log(isResearch);
+
   };
 
   const handleFilterType = (data) => {
@@ -206,7 +204,7 @@ export default function MapScreen(props) {
   if (!isResearch || searchFilter !== "date") {
     finalDataBase = events;
     positionBottom = -50
-    //console.log({ NewDatabase: events });
+
   }
   if (!isResearch || searchFilter === "date") {
     if (timeToFilter === "today") {
@@ -254,16 +252,7 @@ export default function MapScreen(props) {
   const user = useSelector((state) => state.user.value);
   const isModalOpen = useSelector((state) => state.openModal.value);
 
-  // const handlePress = (data) => {
-  //   if (user === null) {
-  //     console.log("null");
-  //     dispatch(setOpenModal(!isModalOpen));
-  //   } else {
-  //     console.log(data);
-  //     props.navigation.navigate("Event", { screen: "EventScreen" });
-  //     dispatch(setEvent(data));
-  //   }
-  // };
+
 
   const handleInitialRegion = (region) => {
     if (!initialRegion) {
@@ -289,16 +278,6 @@ export default function MapScreen(props) {
     });
   }
 
-  // const displayEvents = () => {
-
-  //     dispatch(displayIncomingEvents({ name: newPlace, latitude: tempCoordinates.latitude, longitude: tempCoordinates.longitude }));
-  //     setModalVisible(false);
-  //     setNewPlace('');
-  //   };
-
-  // const markers = events.map((data, i) => {
-  //   return <Marker key={i} coordinate={{ latitude: data.latitude, longitude: data.longitude }} title={data.eventName} />;
-  // });
 
   //Fond de carte personnalisé
   const mapStyle = [
@@ -597,7 +576,7 @@ export default function MapScreen(props) {
         style={styles.filterButton}
       >
         <Text>{searchFilter}</Text>
-        {/* <FontAwesome name={"circle"} size={20} color={stringStyle} /> for filter*/}
+
       </TouchableOpacity>
 
       <TouchableOpacity onPress={toggleDatePicker}>
@@ -654,8 +633,7 @@ export default function MapScreen(props) {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
-        // zoomControlEnabled={true}
-        // showsMyLocationButton={true}
+
         initialRegion={
           currentPosition
             ? {
@@ -713,7 +691,7 @@ export default function MapScreen(props) {
                       color={getColorIconByType(event.type)}
                     />
                   </Text>
-                  {/* <Text>{event.website}</Text> */}
+
                   <Text style={styles.textStyle}>
                     {formatDateToFrenchLocale(event.date)}
                   </Text>
@@ -724,8 +702,7 @@ export default function MapScreen(props) {
                   <Text style={styles.priceEvent}>Prix : {event.price} €</Text>
                   <TouchableOpacity style={styles.goToEvent}></TouchableOpacity>
                 </View>
-                {/* <View style={styles.arrowBorder}/>
-              <View style={styles.arrow} /> */}
+
               </View>
             </Callout>
           </Marker>
@@ -751,7 +728,7 @@ export default function MapScreen(props) {
       <TouchableOpacity
         onPress={() => handleCrash()}
         style={{  position: "absolute",
-        bottom: positionBottom, //-50 && 20
+        bottom: positionBottom, 
         right: 215,
         backgroundColor: "white",
         padding: 10,
@@ -802,7 +779,7 @@ const styles = StyleSheet.create({
   },
   pressableButtonFusee: {
     position: "absolute",
-    bottom: -50, //-50 && 20
+    bottom: -50, 
     right: 110,
     backgroundColor: "white",
     padding: 10,
@@ -811,7 +788,7 @@ const styles = StyleSheet.create({
 
   pressableButtonDown: {
     position: "absolute",
-    bottom: -50, //-50 && 20
+    bottom: -50, 
     right: 215,
     backgroundColor: "white",
     padding: 10,
@@ -906,7 +883,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    //alignSelf: 'flex-start',
+
     width: 250,
     height: "auto",
     minHeight: 250,
@@ -936,14 +913,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     alignItems: "center",
   },
-  arrow: {
-    // backgroundColor: 'transparent',
-    // borderColor: 'transparent',
-    // borderTopColor: '#fff',
-    // borderWidth: 16,
-    // alignSelf: 'center',
-    // marginTop: -32,
-  },
+
   arrowBorder: {
     backgroundColor: "transparent",
     borderColor: "transparent",
@@ -951,15 +921,12 @@ const styles = StyleSheet.create({
     borderWidth: 16,
     alignSelf: "center",
     marginTop: -0.5,
-    // marginBottom: -15
+
   },
   goToEvent: {
-    //textAlign:"center",
+
     alignContent: "center",
     justifyContent: "center",
-    // width:130,
-    // height:40,
-    // margin:10,
-    // borderRadius:10
+
   },
 });
