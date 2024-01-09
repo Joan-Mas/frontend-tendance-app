@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import {
   Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -10,7 +9,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Pressable,
   ScrollView,
   SafeAreaView,
   StatusBar,
@@ -33,11 +31,7 @@ import ForFilterCreator from "./components/ForFilterCreator";
 import ForFilterType from "./components/ForFilterType";
 import ForFilterEventName from "./components/ForFilterEventName";
 
-
-import { adress } from "../adress";
-
 //import pour filtre Date
-import { DatePickerAndroid } from "@react-native-community/datetimepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ForFilterDate from "./components/ForFilterDate";
 import { setOpenModal } from "../reducers/openModal";
@@ -50,13 +44,13 @@ export default function ListScreen({ navigation }) {
   // gestion de la recherche
   const [research, setResearch] = useState(""); 
   const [isResearch, setIsResearch] = useState(false); 
-  const [searchFilter, setSearchFilter] = useState("creator");
+  const [searchFilter, setSearchFilter] = useState("Créateur");
 
   // gestion des dates / Datetimepicker
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimeStartPicker, setShowTimeStartPicker] = useState(false);
-  const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
+
+
   const [timeToFilter, setTimeToFilter] = useState("today");
 
   // gestion des dates / Format
@@ -129,33 +123,33 @@ export default function ListScreen({ navigation }) {
 
   // 
   const handleFilterType = (data) => {
-    setSearchFilter("type");
+    setSearchFilter("Type");
     dispatch(storeResearch(data.type));
     setIsResearch(true);
   };
 
   // switch filter
   const handleFilter = () => {
-    if (searchFilter === "creator") {
-      setSearchFilter("type");
+    if (searchFilter === "Créateur") {
+      setSearchFilter("Type");
       dispatch(resetResearch());
       setIsResearch(false);
     }
-    if (searchFilter === "type") {
-      setSearchFilter("eventName");
+    if (searchFilter === "Type") {
+      setSearchFilter("Nom");
       dispatch(resetResearch());
       setIsResearch(false);
     }
 
-    if (searchFilter === "eventName") {
-      setSearchFilter("date");
+    if (searchFilter === "Nom") {
+      setSearchFilter("Date");
       dispatch(resetResearch());
       setIsResearch(false);
       Opaque = 1;
     }
 
-    if (searchFilter === "date") {
-      setSearchFilter("creator");
+    if (searchFilter === "Date") {
+      setSearchFilter("Créateur");
       dispatch(resetResearch());
       setIsResearch(false);
       setTimeToFilter("today");
@@ -165,58 +159,73 @@ export default function ListScreen({ navigation }) {
 
   };
 
-
-
-
-  if (!isResearch || searchFilter !== "date") {
+  // trier la data en fonction des conditions
+  
+  if (!isResearch || searchFilter !== "Date") {
     finalDataBase = dataDynamic;
   }
-  if (!isResearch || searchFilter === "date") {
+  if (!isResearch || searchFilter === "Date") {
     if (timeToFilter === "today") {
       finalDataBase = dataDynamic;
     } else {
       finalDataBase = ForFilterDate(dataDynamic, timeToFilter);
     }
   } else {
-    if (searchFilter === "creator") {
+    if (searchFilter === "Créateur") {
       finalDataBase = ForFilterCreator(dataDynamic, researchLowerCase);
     }
-    if (searchFilter === "type") {
+    if (searchFilter === "Type") {
       finalDataBase = ForFilterType(dataDynamic, researchLowerCase);
     }
-    if (searchFilter === "eventName") {
+    if (searchFilter === "Nom") {
       finalDataBase = ForFilterEventName(dataDynamic, researchLowerCase);
     }
   }
 
+  // afficher la croix de reset de la recherche & le date picker en fonction des conditions 
+
+  if (isResearch) {
+    opacityChange = 1;
+  } else {
+    opacityChange = 0;
+  }
+  if (searchFilter === "Date") {
+    opacityValue = 1;
+  } else {
+    opacityValue = 0;
+  }
+
+  // classer les dates de façon croissante
 
   let sortedEvents = finalDataBase
     .slice()
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
 
-  const today = new Date();
+   // formater les dates dans sortedEvents 
 
   let dateAllEvent = [];
+
   for (let i = 0; i < sortedEvents.length; i++) {
     dateAllEvent.push(sortedEvents[i].date.slice(0, 10));
   }
 
-
-
+  // trier pour n'afficher que les events présent ou futur 
+  
+  const today = new Date();
   
   const dateEvents = [...new Set(dateAllEvent)].filter(
     (date) => date >= formatDate(today)
   );
 
-  
 
-  const dayList = dateEvents.map((data, i) => {
+
+  const dayList = dateEvents.map((data, i) => { // mapping pour afficher les dates dans l'ordre 
     return (
       <View style={styles.scrollContainer} key={i}>
-        <Text style={styles.textStyle}>{formatDateToFrenchLocale(data)}</Text>
+        <Text style={styles.textStyle}>{formatDateToFrenchLocale(data)}</Text> 
         <View>
-          {dateList(sortedEvents, data).map((data, i) => {
+          {dateList(sortedEvents, data).map((data, i) => { // mapping pour afficher les évents corespondant à chaque date
             if (data.type === "Music") {
               stringStyle = "rgba(89, 215, 207, 1)";
               colorFont = "white";
@@ -314,17 +323,6 @@ export default function ListScreen({ navigation }) {
       </View>
     );
   });
-
-  if (isResearch) {
-    opacityChange = 1;
-  } else {
-    opacityChange = 0;
-  }
-  if (searchFilter === "date") {
-    opacityValue = 1;
-  } else {
-    opacityValue = 0;
-  }
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -426,7 +424,6 @@ export default function ListScreen({ navigation }) {
   );
 }
 
-// style -------------------------------------------------------------------
 const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: 10,
@@ -510,9 +507,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     position: "absolute",
     flexDirection: "row",
-    // alignContent: 'center',
-    // justifyContent: 'center',
-    // alignItems: "center",
     top: 110,
     right: 30,
     backgroundColor: "white",

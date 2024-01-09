@@ -11,7 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  SafeAreaView, 
+  SafeAreaView,
   StatusBar,
 } from "react-native";
 
@@ -32,7 +32,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setEvent } from "../reducers/event";
 import { adress } from "../adress";
 
-
 export default function ProfileScreen(props) {
   // todo Gerer AMIS/MESSAGERIE/FAVORIS/PARAMETRE
 
@@ -46,7 +45,6 @@ export default function ProfileScreen(props) {
 
   useEffect(() => {
     if (user) {
-
       fetch(`http://${adress}/user/mesEvents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,25 +52,25 @@ export default function ProfileScreen(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-
-          const eventsFutur = data.map((data, index) => (
-            <TouchableOpacity
-              onPress={() => handlePress(data)}
-              key={`futur-${index}`}
-            >
-              <Event data={data} />
-            </TouchableOpacity>
-          ));
+          const eventsFutur = data
+            .filter((event) => new Date(event.date) >= new Date())
+            .slice()
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .map((data, index) => (
+              <TouchableOpacity
+                onPress={() => handlePress(data)}
+                key={`futur-${index}`}
+              >
+                <Event data={data} />
+              </TouchableOpacity>
+            ));
           setFuturEvents(eventsFutur);
         });
     }
     if (!user) {
-
       dispatch(setOpenModal(true));
     }
   }, [user, isFocused]);
-
-
 
   //! Function _____________________________________________________________________________________________________________________________
 
@@ -96,32 +94,27 @@ export default function ProfileScreen(props) {
 
   return user ? (
     <SafeAreaView style={styles.container}>
-            <StatusBar
+      <StatusBar
         barStyle="dark-content" // Change to "light-content" if you need white status bar content
         backgroundColor="white" // Set the background color of the status bar
       />
-    <View style={styles.background}>
+      <View style={styles.background}>
+        <View style={styles.viewPhotoBack}>
+          <Image source={photoBack} style={styles.photoBack} size={100} />
+          <Image source={photoProfile} style={styles.photoProfile} size={100} />
+        </View>
 
-      <View style={styles.viewPhotoBack}>
+        <View style={styles.viewParam}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => dispatch(logout())}
+          >
+            <FontAwesome name="sign-out" size={30} color={"white"} />
+            <Text style={styles.textIcon}>Logout</Text>
+          </TouchableOpacity>
+        </View>
 
-        <Image source={photoBack} style={styles.photoBack} size={100} />
-        <Image source={photoProfile} style={styles.photoProfile} size={100} />
-
-      </View>
-
-      <View style={styles.viewParam}>
-        <TouchableOpacity
-          style={styles.icon}
-          onPress={() => dispatch(logout())}
-        > 
-          <FontAwesome name="sign-out" size={30} color={"white"} />
-          <Text style={styles.textIcon}>Logout</Text>
-        </TouchableOpacity>
-
-        
-      </View>
-
-      {/* <View style={styles.viewGear
+        {/* <View style={styles.viewGear
       }>
         <FontAwesome
           style={styles.viewPar}
@@ -131,34 +124,34 @@ export default function ProfileScreen(props) {
         />
       </View> */}
 
-      <View style={styles.viewName}>
-        <Text style={styles.titleName}>@{user.username}</Text>
-      </View>
+        <View style={styles.viewName}>
+          <Text style={styles.titleName}>@{user.username}</Text>
+        </View>
 
-      <View style={styles.viewIcon}>
-        <TouchableOpacity style={styles.icon} onPress={() => handleMesAmis()}>
-          <FontAwesome name="users" size={30} color={"white"} />
-          <Text style={styles.textIcon}>Mes amis</Text>
-        </TouchableOpacity>
+        <View style={styles.viewIcon}>
+          <TouchableOpacity style={styles.icon} onPress={() => handleMesAmis()}>
+            <FontAwesome name="users" size={30} color={"white"} />
+            <Text style={styles.textIcon}>Mes amis</Text>
+          </TouchableOpacity>
 
-        {/* <View style={styles.icon}>
+          {/* <View style={styles.icon}>
                      <FontAwesome name="rocket" size={30} color={"#161519"} />
                      <Text style={styles.textIcon}>Messagerie</Text>
                  </View>  */}
 
-        {/* <View style={styles.icon}>
+          {/* <View style={styles.icon}>
           <FontAwesome name="heart" size={25} color={"white"} />
            <Text style={styles.textIcon}>Mes Favoris</Text> 
         </View> */}
-      </View>
-
-      <ScrollView style={styles.events}>
-        <View style={styles.futurEvents}>
-          <Text style={styles.text}>Évènement à venir</Text>
-          {futurEvents}
         </View>
-      </ScrollView>
-    </View>
+
+        <ScrollView style={styles.events}>
+          <View style={styles.futurEvents}>
+            <Text style={styles.text}>Évènement à venir</Text>
+            {futurEvents}
+          </View>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   ) : (
     <View>
@@ -176,18 +169,16 @@ const styles = StyleSheet.create({
   },
 
   viewGear: {
-   top: 120,
-   left: 20,
-    position: 'absolute',
+    top: 120,
+    left: 20,
+    position: "absolute",
     margin: 10,
     borderRadius: 10,
-
   },
 
   background: {
-   
-     backgroundColor: "#161519",
-   },
+    backgroundColor: "#161519",
+  },
 
   photoBack: {
     width: "100%",
@@ -202,21 +193,16 @@ const styles = StyleSheet.create({
     top: 100,
   },
 
-
   viewName: {
     alignSelf: "center",
-   
-    
-    
   },
   viewLogout: {
-    position: 'absolute',
+    position: "absolute",
     left: 70,
     bottom: -10,
     // backgroundColor: "white",
     padding: 5,
     borderRadius: 20,
-   
   },
   textLogout: {
     color: "#161519",
@@ -238,12 +224,10 @@ const styles = StyleSheet.create({
     left: 270,
     top: 100,
     borderRadius: 50,
-    
   },
   icon: {
     alignItems: "center",
     justifyContent: "center",
-    
   },
   textIcon: {
     color: "white",
@@ -277,14 +261,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 1,
-            shadowRadius: 3.84,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
 
-            elevation: 5,
-
+    elevation: 5,
   },
 });

@@ -22,4 +22,4 @@ export const listSlice = createSlice({
 export const { storeResearch, resetResearch } = listSlice.actions;
 export default listSlice.reducer;
 
-//here test
+//enregistrer la string en entrée pour la recherche & reset la recherche

@@ -49,7 +49,7 @@ export default function MapScreen(props) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [research, setResearch] = useState(""); // état de la recherche en Input
   const [isResearch, setIsResearch] = useState(true); // état recherche active/inactive
-  const [searchFilter, setSearchFilter] = useState("type");
+  const [searchFilter, setSearchFilter] = useState("Type");
   const [timeToFilter, setTimeToFilter] = useState("today");
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -124,20 +124,6 @@ export default function MapScreen(props) {
   };
 
   //Affichage du calendrier en Android
-  const showAndroidDatePicker = async () => {
-    try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        date: selectedDate,
-        mode: "calendar",
-      });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        const selectedDate = new Date(year, month, day);
-        handleDateChange(null, selectedDate);
-      }
-    } catch ({ code, message }) {
-
-    }
-  };
 
   const hideDatePicker = () => {
     setShowDatePicker(false);
@@ -168,32 +154,32 @@ export default function MapScreen(props) {
   };
 
   const handleFilterType = (data) => {
-    setSearchFilter("type");
+    setSearchFilter("Type");
     dispatch(storeResearch(data.type));
     setIsResearch(true);
   };
 
   const handleFilter = () => {
-    if (searchFilter === "creator") {
-      setSearchFilter("type");
+    if (searchFilter === "Créateur") {
+      setSearchFilter("Type");
       dispatch(resetResearch());
       setIsResearch(false);
     }
-    if (searchFilter === "type") {
-      setSearchFilter("eventName");
+    if (searchFilter === "Type") {
+      setSearchFilter("Nom");
       dispatch(resetResearch());
       setIsResearch(false);
     }
 
-    if (searchFilter === "eventName") {
-      setSearchFilter("date");
+    if (searchFilter === "Nom") {
+      setSearchFilter("Date");
       dispatch(resetResearch());
       setIsResearch(false);
       Opaque = 1;
     }
 
-    if (searchFilter === "date") {
-      setSearchFilter("creator");
+    if (searchFilter === "Date") {
+      setSearchFilter("Créateur");
       dispatch(resetResearch());
       setIsResearch(false);
       setTimeToFilter("today");
@@ -201,12 +187,12 @@ export default function MapScreen(props) {
     }
   };
 
-  if (!isResearch || searchFilter !== "date") {
+  if (!isResearch || searchFilter !== "Date") {
     finalDataBase = events;
     positionBottom = -50
 
   }
-  if (!isResearch || searchFilter === "date") {
+  if (!isResearch || searchFilter === "Date") {
     if (timeToFilter === "today") {
       finalDataBase = events;
       positionBottom = -50
@@ -217,17 +203,17 @@ export default function MapScreen(props) {
       
     }
   } else {
-    if (searchFilter === "creator") {
+    if (searchFilter === "Créateur") {
       finalDataBase = ForFilterCreator(events, researchLowerCase);
       positionBottom = 20
       
     }
-    if (searchFilter === "type") {
+    if (searchFilter === "Type") {
       finalDataBase = ForFilterType(events, researchLowerCase);
       positionBottom = 20
      
     }
-    if (searchFilter === "eventName") {
+    if (searchFilter === "Nom") {
       finalDataBase = ForFilterEventName(events, researchLowerCase);
       positionBottom = 20
       
@@ -238,7 +224,7 @@ export default function MapScreen(props) {
   } else {
     opacityChange = 0;
   }
-  if (searchFilter === "date") {
+  if (searchFilter === "Date") {
     opacityValue = 1;
   } else {
     opacityValue = 0;
@@ -491,30 +477,6 @@ export default function MapScreen(props) {
     }
   };
 
-  const foodImg = require("../assets/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg");
-  const musicImg = require("../assets/marcela-laskoski-YrtFlrLo2DQ-unsplash.jpg");
-  const natureImg = require("../assets/tim-swaan-eOpewngf68w-unsplash.jpg");
-  const scienceImg = require("../assets/milad-fakurian-58Z17lnVS4U-unsplash.jpg");
-  const artImg = require("../assets/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg");
-  const sportImg = require("../assets/august-phlieger-CREqtqgBFcU-unsplash.jpg");
-
-  const getImageByType = (eventType) => {
-    switch (eventType) {
-      case "Food":
-        return foodImg;
-      case "Music":
-        return musicImg;
-      case "Nature":
-        return natureImg;
-      case "Science":
-        return scienceImg;
-      case "Art":
-        return artImg;
-      case "Sport":
-        return sportImg;
-    }
-  };
-
   const foodColor = "rgba(243, 200, 243, 1)";
   const musicColor = "rgba(89, 215, 207, 1)";
   const natureColor = "rgba(133, 244, 150, 1)";
@@ -575,61 +537,57 @@ export default function MapScreen(props) {
         onPress={() => handleFilter()}
         style={styles.filterButton}
       >
-        <Text>{searchFilter}</Text>
+        <FontAwesome name={"filter"} size={20} />
+        <Text> {searchFilter}</Text>
 
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={toggleDatePicker}>
-        <View
+      {/* condition de rendu du date picker en fonction du système ios ou android */}
+      {Platform.OS === "ios" && (
+        <DateTimePicker
           style={{
             opacity: opacityValue,
             position: "absolute",
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 1,
-            bottom: -515,
-            left: 15,
             backgroundColor: "white",
-            padding: 10,
-            borderRadius: 30,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+            borderRadius: 5,
+            borderColor: "#C5C5C5",
+            borderWidth: 1,
+            left: 20,
+            top: 555,
+            height: 40,
+            width: 100,
           }}
-        >
-          <Text>{dateText ? dateText : "Sélectionner une date"}</Text>
-        </View>
-      </TouchableOpacity>
-      {/* condition de rendu du date picker en fonction du système ios ou android */}
-      {showDatePicker && Platform.OS === "ios" && (
-        <DateTimePicker
-          style={styles.datePicker}
-          value={selectedDate}
-          mode="date"
-          display="default"
-          onChange={handleDateChange}
-        />
-      )}
-
-      {showDatePicker && Platform.OS === "android" && (
-        <DateTimePicker
-          style={styles.datePicker}
           value={selectedDate}
           mode="date"
           display="calendar"
           onChange={handleDateChange}
+        />
+      )}
+
+      {Platform.OS === "android" && (
+        <DateTimePicker
+        style={{
+          opacity: opacityValue,
+          position: "absolute",
+          backgroundColor: "white",
+          borderRadius: 5,
+          borderColor: "#C5C5C5",
+          borderWidth: 1,
+          left: 20,
+          top: 555,
+          height: 40,
+          width: 100,
+        }}
+        value={selectedDate}
+        mode="date"
+        display="calendar"
+        onChange={handleDateChange}
           onDismiss={hideDatePicker}
         />
       )}
 
       <MapView
-        ref={mapRef} //!_______________________________________________
+        ref={mapRef} 
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
@@ -849,6 +807,7 @@ const styles = StyleSheet.create({
   },
 
   filterButton: {
+    flexDirection: "row",
     borderWidth: 1,
     position: "absolute",
     top: 100,
