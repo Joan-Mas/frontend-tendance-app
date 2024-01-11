@@ -19,7 +19,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modale from "./components/Modale";
 import { setOpenModal } from "../reducers/openModal";
 import { adress } from "../adress";
-import { addEvent } from "../reducers/events";
+
 
 
 import * as ImagePicker from 'expo-image-picker'
@@ -27,13 +27,6 @@ import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function PublishScreen() {
 
-  //! 
-  //todo style mieux !
-  // todo Price gerer mieux mettre un input correct
-  // todo Status Bar et KeyboardAvoidinView
-  // todo ajouter Amis
-  // todo Acceder a la galerie
-  // todo Publier
 
   const [name, setName] = useState("");
   const [addresse, setAdresse] = useState("");
@@ -51,9 +44,9 @@ export default function PublishScreen() {
 
   const [picture, setPicture] = useState(null);
 
-  // Afficher si event publish ou pas
+
   const [affiche, setAffiche] = useState(true);
-  //!
+
   const handlePictureImport = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
@@ -92,8 +85,7 @@ export default function PublishScreen() {
 
   
 
-  //!
-  //ResetAll
+
   const handleResetAll = () => {
     setAffiche(true);
     setName("");
@@ -110,7 +102,8 @@ export default function PublishScreen() {
   };
 
   const dispatch = useDispatch();
-  // Afiiche Modale
+
+
   useEffect(() => {
     if (user) {
 
@@ -139,7 +132,7 @@ export default function PublishScreen() {
     setSelectedOptionAccess(optionId);
   };
 
-  // ! dateeeeeeeeeeeeee
+
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const toggleDatePicker = () => {
@@ -159,7 +152,7 @@ export default function PublishScreen() {
     }
   };
 
-  //Affichage du calendrier en Android
+
   const showAndroidDatePicker = async () => {
     try {
       const { action, year, month, day } = await DatePickerAndroid.open({
@@ -179,7 +172,7 @@ export default function PublishScreen() {
     setShowDatePicker(false);
   };
 
-  //! timeeeeeeeeeeeeeeeeeeeeeeeee
+
   const toggleTimeStartPicker = () => {
     setShowTimeStartPicker(true);
   };
@@ -258,9 +251,9 @@ export default function PublishScreen() {
       longitude: null,
     };
 
-    // todo fetch post pour publier dans la data ...
+  
     setAffiche(false);
-    // /publishEvent
+
     fetch(`http://${adress}/events/publishEvent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -295,7 +288,7 @@ export default function PublishScreen() {
       style={styles.container}
     > 
       <StatusBar backgroundColor="#f1f1f1" barStyle="dark-content" />
-      {/* <ImageBackground source={require('../assets/photoBack.jpg')} style={styles.imageBackground}> */}
+      
       <Text style={styles.title}><FontAwesome name="rocket" size={10} color={"rgba(22, 21, 25, 1)"} /> Créer un event <FontAwesome name="circle" size={10} color={"rgba(22, 21, 25, 1)"} /></Text>
 
       <View style={styles.viewAccess}>
@@ -397,13 +390,7 @@ export default function PublishScreen() {
 
         <View style={styles.containerDate}>
           <View >
-            {/* Bouton sélection date calendrier */}
-
-            {/* <View style={styles.selectDate}>
-              <TouchableOpacity onPress={toggleDatePicker}>
-            
-              </TouchableOpacity>
-            </View> */}
+       
 
             {Platform.OS === "ios" && (
               <DateTimePicker
@@ -429,15 +416,11 @@ export default function PublishScreen() {
             <View style={styles.containerDateTwo}>
               <View style={styles.selectTime}>
                 <TouchableOpacity onPress={toggleTimeStartPicker}>
-                  {/* <Text>
-                    {hourStart
-                      ? `Heure de début : `
-                      : "Choisir l'heure de début"}
-                  </Text> */}
+                
                 </TouchableOpacity>
               </View>
 
-              {/* {showTimeStartPicker && ( */}
+     
               <DateTimePicker
                 style={styles.datePickerStart}
                 value={hourStart || new Date()}
@@ -445,19 +428,17 @@ export default function PublishScreen() {
                 display="default"
                 onChange={handleTimeStartChange}
               />
-              {/* )} */}
+      
 
               <View style={styles.selectTime}>
                 <TouchableOpacity onPress={toggleTimeEndPicker}>
                   <Text style={styles.hourFin}>
-                    {/* {hourEnd
-                      ? `Heure de fin :`
-                      : "Choisir l'heure de fin"} */}
+                 
                   </Text>
                 </TouchableOpacity>
               </View>
 
-              {/* {showTimeEndPicker && ( */}
+           
               <DateTimePicker
                 style={styles.datePickerEnd}
                 value={hourEnd || new Date()}
@@ -465,7 +446,7 @@ export default function PublishScreen() {
                 display="default"
                 onChange={handleTimeEndChange}
               />
-              {/* )} */}
+            
             </View>
           </View>
         </View>
@@ -511,7 +492,7 @@ export default function PublishScreen() {
       >
         <Text style={styles.textStylePublish}>Publier</Text>
       </TouchableOpacity>
-      {/* </ImageBackground> */}
+    
     </KeyboardAvoidingView>
     
   ) : (
@@ -536,8 +517,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: "rgba(255, 204, 204, 1)",
     alignItems: "center",
-    justifyContent: "center", // Ajout de cette ligne pour centrer verticalement les éléments
-    
+    justifyContent: "center", 
   },
   hourFin: {
     marginBottom: 5,
@@ -545,7 +525,7 @@ const styles = StyleSheet.create({
 
   containerDate: {
     flexDirection: "row",
-    // marginTop: 10,
+ 
     justifyContent: "space-between",
     marginBottom: 10,
   },

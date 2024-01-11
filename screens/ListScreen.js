@@ -88,7 +88,7 @@ export default function ListScreen({ navigation }) {
   const hideDatePicker = () => {
     setShowDatePicker(false);
 
-    //!filtre actif ---------------------------------------------------------------------------------------------------
+    
   };
 
   // navigation to map

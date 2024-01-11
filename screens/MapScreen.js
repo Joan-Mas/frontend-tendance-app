@@ -28,12 +28,11 @@ import formatDateToFrenchLocale from "./components/formatageList";
 import { format } from "date-fns";
 import Modale from "./components/Modale";
 
-import { setEvents } from "../reducers/events";
+
 import { setEvent } from "../reducers/event";
 import { storeResearch, resetResearch } from "../reducers/list";
 import { setOpenModal } from "../reducers/openModal";
 
-import eventData from "../data/data";
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -58,7 +57,7 @@ export default function MapScreen(props) {
   const [currentPosition, setCurrentPosition] = useState(null);
   const currentPositionMarker = require("../assets/photoProfile.jpg");
   const [initialRegion, setInitialRegion] = useState(null);
-  const mapRef = useRef(null); //! constante pour utiliser handleMarkerPress et se centrer sur l'event qui pop up
+  const mapRef = useRef(null); 
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -77,7 +76,7 @@ export default function MapScreen(props) {
       .then((data) => {
         if (data) {
           const filteredEvents = data.filter((event) => new Date(event.date) >= new Date());
-          dispatch(setEvents(filteredEvents));
+
         }
 
       });
@@ -99,7 +98,7 @@ export default function MapScreen(props) {
       longitudeDelta: 0.2,
     });
   };
-  //Barre de recherche
+
 
   const toggleDatePicker = () => {
     setShowDatePicker(true);
@@ -128,7 +127,7 @@ export default function MapScreen(props) {
   const hideDatePicker = () => {
     setShowDatePicker(false);
 
-    //!filtre actif ---------------------------------------------------------------------------------------------------
+    
   };
 
   const handleSearch = () => {
@@ -561,6 +560,7 @@ export default function MapScreen(props) {
           mode="date"
           display="calendar"
           onChange={handleDateChange}
+          onDismiss={hideDatePicker}
         />
       )}
 

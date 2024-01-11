@@ -22,35 +22,28 @@ import { setOpenModal } from "../reducers/openModal";
 import { format } from "date-fns";
 import formatDateToFrenchLocale from "./components/formatageList";
 
-import {
-  addParticipant,
-  removeParticipant,
-  addInter,
-  removeInter,
-} from "../reducers/user";
+
 import { adress } from "../adress";
 
 export default function EventScreen({ navigation: { goBack } }) {
-  //todo ajouter les bonnes images de fond
-  // todo a verifier si les dispatch de user marche lorquon met en place le backEnds et les logins
 
-  //! Constant __________________________________________________________________________________________________________________________
 
+  
   const isModalOpen = useSelector((state) => state.openModal.value);
 
-  const [isParticiped, setIsParticiped] = useState(false); // todo Verifier si le user se trouve dans les particpant si oui mettre deja en true
-  const [isInterrested, setIsInterrested] = useState(false); // todo Verifier si le user se trouve dans les interresé si oui mettre deja en true
+  const [isParticiped, setIsParticiped] = useState(false); 
+  const [isInterrested, setIsInterrested] = useState(false); 
   const [isAddingFriend, setIsAddingFriend] = useState(false);
   const dispatch = useDispatch();
 
   const dataEvent = useSelector((state) => state.event.value);
 
   const date = dataEvent.date.slice(0, 10);
-  // const date = "bite!"
+
 
   const user = useSelector((state) => state.user.value);
 
-  // On verifie si le user participe deja oui ou non a l'event
+
   useEffect(() => {
     if (user.events.interEvents.includes(dataEvent._id)) {
       setIsInterrested(true);
@@ -60,7 +53,7 @@ export default function EventScreen({ navigation: { goBack } }) {
     }
   }, []);
 
-  //! Function_________________________________________________________________________________________________________________________________
+  
 
   const handleQuit = () => {
     dispatch(resetEvent());
@@ -70,7 +63,7 @@ export default function EventScreen({ navigation: { goBack } }) {
   const handleParticipate = () => {
     setIsParticiped(!isParticiped);
     if (!isParticiped) {
-      // todo dispatch(addParticipant(dataEvent.id));
+
       fetch(`http://${adress}/user/participated`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,7 +74,7 @@ export default function EventScreen({ navigation: { goBack } }) {
 
         });
     } else {
-      // todo dispatch(addParticipant(dataEvent.id))
+     
       fetch(`http://${adress}/user/notParticipated`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -120,8 +113,7 @@ export default function EventScreen({ navigation: { goBack } }) {
   };
 
   const handleAjouterUnAmi = () => {
-    // console.log("user._id :>> ", user._id);
-    // console.log("dataEvent._id :>> ", dataEvent._id);
+
     setIsAddingFriend(true);
     fetch(`http://${adress}/messagerie/ajouterUnAmi`, {
       method: "POST",
@@ -136,19 +128,18 @@ export default function EventScreen({ navigation: { goBack } }) {
       });
   };
 
-  // ! Return_____________________________________________________________________________________________________________________________________
-
+  
 
   let membreInterrested = dataEvent.users.interUsers.length;
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
-        barStyle="light-content" // Change to "light-content" if you need white status bar content
-        backgroundColor="white" // Set the background color of the status bar
+        barStyle="light-content" 
+        backgroundColor="white" 
       />
       <View>
         <View style={styles.viewIcon}>
-          {/* <FontAwesome name="user" size={30} color={"#1e064e"} />  */}
+      
           <TouchableOpacity onPress={() => handleQuit()}>
             <FontAwesome name="times" size={30} color={"white"} />
           </TouchableOpacity>
@@ -199,15 +190,7 @@ export default function EventScreen({ navigation: { goBack } }) {
                 </Text>
               </View>
 
-              {/* <Text style={styles.site}>{dataEvent.website}</Text>
-          <Text style={styles.type}>{dataEvent.type}</Text>
-          <Text style={styles.date}>{formatDateToFrenchLocale(date)}</Text>
-          <Text style={styles.horraire}>
-            {format(new Date(dataEvent.hourStart), "HH'h'mm")}-
-            {format(new Date(dataEvent.hourEnd), "HH'h'mm")}
-          </Text>
-          <Text style={styles.adresse}>{dataEvent.address}</Text>
-          <Text style={styles.prix}>Entrée : {dataEvent.price}€</Text> */}
+             
 
               <View style={styles.viewButton}>
                 <Pressable
@@ -278,7 +261,7 @@ export default function EventScreen({ navigation: { goBack } }) {
   );
 }
 
-//! Style ___________________________________________________________________________________________________________________________________
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -378,6 +361,6 @@ const styles = StyleSheet.create({
   text: {
     paddingLeft: 10,
     color: "white",
-    // fontWeight: "bold",
+ 
   },
 });

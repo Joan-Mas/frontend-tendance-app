@@ -20,7 +20,7 @@ import fetchData from "../services/fetchData";
 //constante globale
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-// const BACKEND_ADDRESS = "https://backend-tendance.vercel.app";
+
 
 export default function SelectionScreen({ navigation }) {
   
@@ -31,8 +31,8 @@ export default function SelectionScreen({ navigation }) {
   return (
     <SafeAreaView contentContainerStyle={styles.container}>
        <StatusBar
-        barStyle="dark-content" // Change to "light-content" if you need white status bar content
-        backgroundColor="white" // Set the background color of the status bar
+        barStyle="dark-content" 
+        backgroundColor="white" 
       />
       <ScrollView contentContainerStyle={styles.container}>
 

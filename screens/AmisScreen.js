@@ -58,7 +58,6 @@ export default function AmisScreen(props) {
 
   useEffect(() => {
     fetch(`http://${adress}/messagerie/amis`, {
-      //! a changer dans le back a push
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idUser: user._id }),
@@ -135,13 +134,11 @@ const styles = StyleSheet.create({
   friend: {
     flexDirection: "row",
     alignItems: "center",
-    // justifyContent: "space-around",
     backgroundColor: "rgba(255, 204, 204, 1)",
     margin: 10,
     width: 300,
     height: 80,
     padding: 10,
-    // margin: 5,
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "white",

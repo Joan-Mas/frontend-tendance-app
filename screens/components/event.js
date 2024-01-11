@@ -18,7 +18,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 export default function Event(props) {
   let membreInterrested = props.data.users.interUsers.length;
 
-  // if pour les color si cest past or futur
+
   let now = new Date();
   let date = new Date(props.data.date);
   let color = "black";
@@ -26,7 +26,7 @@ export default function Event(props) {
     color = "#d9d9d9";
   }
 
-  // todo faire un switch pour les color des events
+
 
   const foodColor = "rgba(243, 200, 243, 1)";
   const musicColor = "rgba(89, 215, 207, 1)";
@@ -108,20 +108,7 @@ export default function Event(props) {
 }
 
 const styles = StyleSheet.create({
-  // ! EVENTS
-
-  event: {
-    // height: "auto",
-    // borderRadius: 5,
-    // flexDirection: "row",
-    // alignItems: "center",
-    // backgroundColor: "rgba(22, 21, 25, 1)",
-    // borderWidth: 2,
-    // borderColor: getColorIconByType(props.data.type),
-    // marginTop: 15,
-    // padding: 5,
-    // marginBottom: 10,
-  },
+ 
 
   img: {
     width: 70,

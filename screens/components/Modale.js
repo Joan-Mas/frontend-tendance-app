@@ -120,7 +120,7 @@ export default function Modale() {
               </TouchableOpacity>
 
               <TextInput
-                placeholder="username"
+                placeholder="Nom d'utilisateur"
                 placeholderTextColor={'grey'}
                 onChangeText={(value) => setUsername(value)}
                 value={username}
@@ -134,7 +134,7 @@ export default function Modale() {
                 style={styles.input}
               />
               <TextInput
-                placeholder="password"
+                placeholder="Mot de passe"
                 placeholderTextColor={'grey'}
                 secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}

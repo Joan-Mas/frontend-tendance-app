@@ -22,12 +22,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TrendScreen(props) {
   const [top, setTop] = useState("");
-
-  //! on gere la modale connection en dessous_____________________________________________________________________
+ 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.value);
-  const isModalOpen = useSelector((state) => state.openModal.value);
 
+  const user = useSelector((state) => state.user.value);
+  const events = useSelector((state) => state.events.value);
+  const isModalOpen = useSelector((state) => state.openModal.value);
+  
   const handlePress = (data) => {
     if (user === null) {
       dispatch(setOpenModal(!isModalOpen));
@@ -36,39 +37,8 @@ export default function TrendScreen(props) {
       dispatch(setEvent(data));
     }
   };
-  //! on gere la modale connection au dessus_____________________________________________________________________
-
-  //! on fetch les events (normalement fais des le depart)
-  //! on modifie on gere le reducer par ordre
-  const events = useSelector((state) => state.events.value);
-
-  const foodImg = require("../assets/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg");
-  const musicImg = require("../assets/marcela-laskoski-YrtFlrLo2DQ-unsplash.jpg");
-  const natureImg = require("../assets/tim-swaan-eOpewngf68w-unsplash.jpg");
-  const scienceImg = require("../assets/milad-fakurian-58Z17lnVS4U-unsplash.jpg");
-  const artImg = require("../assets/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg");
-  const sportImg = require("../assets/august-phlieger-CREqtqgBFcU-unsplash.jpg");
-
-  const getImageByType = (eventType) => {
-    switch (eventType) {
-      case 'Food':
-        return foodImg;
-      case 'Music':
-        return musicImg;
-      case 'Nature':
-        return natureImg;
-      case 'Science':
-        return scienceImg;
-      case 'Art':
-        return artImg;
-      case 'Sport':
-        return sportImg;
-    }
-  };
-
 
   useEffect(() => {
-    //! qui va trier les events 10 les plus cotés
 
     const sortedEvents = events.slice().sort(function (a, b) {
 

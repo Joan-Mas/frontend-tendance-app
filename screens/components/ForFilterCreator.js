@@ -2,7 +2,7 @@ export default function ForFilterCreator(data, researchLowerCase) {
 
 
 
-    let newDataBase = []; //!fonction de filtrage
+    let newDataBase = []; 
     
     
       for (let i = 0; i < data.length; i++) {

@@ -33,7 +33,7 @@ import { setEvent } from "../reducers/event";
 import { adress } from "../adress";
 
 export default function ProfileScreen(props) {
-  // todo Gerer AMIS/MESSAGERIE/FAVORIS/PARAMETRE
+
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -110,7 +110,7 @@ export default function ProfileScreen(props) {
             onPress={() => dispatch(logout())}
           >
             <FontAwesome name="sign-out" size={30} color={"white"} />
-            <Text style={styles.textIcon}>Logout</Text>
+            <Text style={styles.textIcon}>Déconnexion</Text>
           </TouchableOpacity>
         </View>
 
@@ -130,7 +130,7 @@ export default function ProfileScreen(props) {
 
         <View style={styles.viewIcon}>
           <TouchableOpacity style={styles.icon} onPress={() => handleMesAmis()}>
-            <FontAwesome name="users" size={30} color={"white"} />
+            <FontAwesome name="users" size={25} color={"white"} />
             <Text style={styles.textIcon}>Mes amis</Text>
           </TouchableOpacity>
 
@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 70,
     bottom: -10,
-    // backgroundColor: "white",
     padding: 5,
     borderRadius: 20,
   },
@@ -211,8 +210,8 @@ const styles = StyleSheet.create({
   viewParam: {
     position: "absolute",
     justifyContent: "space-around",
-    left: 60,
-    top: 100,
+    left: 10,
+    top: 130,
     borderRadius: 50,
   },
   viewPar: {
@@ -221,8 +220,8 @@ const styles = StyleSheet.create({
   viewIcon: {
     position: "absolute",
     justifyContent: "space-around",
-    left: 270,
-    top: 100,
+    left: 300,
+    top: 135,
     borderRadius: 50,
   },
   icon: {
